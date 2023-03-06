@@ -1,6 +1,6 @@
 
 
-dataCellCulture = readRDS(url("L07_dataset_resampling_cellculture.rds")) # complete once dataset on github
+dataCellCulture = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L07_infer_workflow/L07_dataset_resampling_cellculture.rds"))
 
 ### let's save the plot with the proportions
 original_proportions = ggplot(dataCellCulture, aes(x=culture, fill = diameter))+
