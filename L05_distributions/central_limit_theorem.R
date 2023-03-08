@@ -23,6 +23,7 @@ hist(exp_dist, main = "Exponential Distribution")
 hist(poisson_dist, main = "Poisson Distribution")
 
 
+dev.off()
 
 ##### let's scale this up and show what happens 
 ##### when we get the mean from multiple distributions
