@@ -35,6 +35,7 @@ null_statistic_drinking <- dataExposure %>%
   hypothesize(null = "independence") %>%
   generate(reps = 1000, type = "permute") %>%
   calculate(stat = "Chisq")
+```
 
 And finally we visualize both null distributions and the test statistic:
 
