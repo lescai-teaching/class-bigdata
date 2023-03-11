@@ -1,7 +1,7 @@
 # Exercise 3 Solution
 
 First we need to load the data
-```{R}
+```R
 dataCytofluorimeter = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L10_stats_exercises/exercise_03/L10_dataset_exercise03.rds"))
 
 ```
@@ -9,13 +9,13 @@ dataCytofluorimeter = readRDS(url("https://raw.githubusercontent.com/lescai-teac
 We briefly inspect the dataset
 
 
-```{R}
+```R
 head(dataCytofluorimeter)
 ```
 
 And use the `ggpairs` function to get a better overview of the relationships of all data
 
-```{R}
+```R
 library(GGally)
 ggpairs(dataCytofluorimeter, columns = c("CD123", "CD345", "CD876"))
 ```
@@ -26,7 +26,7 @@ We then follow the proper *infer* workflow to determine the p-value
 
 First we compute the observed statistic
 
-```{R}
+```R
 cytofluorimeter_correlation_observed <- dataCytofluorimeter %>% 
   specify(CD345 ~ CD876) %>%
   calculate(stat = "correlation")
@@ -34,7 +34,7 @@ cytofluorimeter_correlation_observed <- dataCytofluorimeter %>%
 
 Then we compute the null distribution using 1000 permutations
 
-```{R}
+```R
 cytofluorimeter_correlation_null <- dataCytofluorimeter %>% 
   specify(CD345 ~ CD876) %>%
   hypothesize(null = "independence") %>%
@@ -45,7 +45,7 @@ cytofluorimeter_correlation_null <- dataCytofluorimeter %>%
 and finally we can visualise the relative standing of our observed statistics compared to the null with:
 
 
-```{R}
+```R
 visualize(cytofluorimeter_correlation_null) +
   shade_p_value(obs_stat = cytofluorimeter_correlation_observed, direction = "two-sided")
 ```
@@ -53,20 +53,20 @@ visualize(cytofluorimeter_correlation_null) +
 And calculate the p-value from it:
 
 
-```{R}
+```R
 corr_pval = cytofluorimeter_correlation_null %>%
   get_p_value(obs_stat = cytofluorimeter_correlation_observed, direction = "two-sided")
 ```
 
 We do expect the p-value to be pretty extreme
 
-```{R}
+```R
 corr_pval
 ```
 
 We can verify the extent of the correlation with
 
-```{R}
+```R
 cytofluorimeter_correlation_observed
 ```
 

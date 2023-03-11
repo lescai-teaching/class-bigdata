@@ -3,11 +3,11 @@
 ## Loading the data
 
 
-```{R}
+```R
 dataHappyness = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L10_stats_exercises/exercise_02/L10_dataset_exercise_02.rds"))
 ```
 
-```{R}
+```R
 head(dataHappyness)
 ```
 
@@ -16,7 +16,7 @@ head(dataHappyness)
 
 Since there are two variables, we can first create a plot of the first one
 
-```{R}
+```R
 ggplot(dataHappyness, aes(y=serotonin_level, fill=happyness))+
   geom_boxplot()+
   coord_flip()
@@ -24,7 +24,7 @@ ggplot(dataHappyness, aes(y=serotonin_level, fill=happyness))+
 
 Then a plot of the second one
 
-```{R}
+```R
 ggplot(dataHappyness, aes(y=endorphin_level, fill=happyness))+
   geom_boxplot()+
   coord_flip()
@@ -40,7 +40,7 @@ And formulate some hypotheses.
 First we generate the observed statistic with the appropriate test, which is a t-test between two independent samples, i.e. testing if the means are different between the two categories
 
 
-```{R}
+```R
 serotonin_happyness_observed = dataHappyness %>%
   specify(serotonin_level ~ happyness) %>%
   calculate(stat = "diff in means", order = c("rarely_happy", "usually_happy"))
@@ -49,7 +49,7 @@ serotonin_happyness_observed = dataHappyness %>%
 Then we can use permutations to create a null distribution out of our data
 
 
-```{R}
+```R
 serotonin_happyness_null_empirical = dataHappyness %>%
   specify(serotonin_level ~ happyness) %>%
   hypothesise(null = "independence") %>%
@@ -59,7 +59,7 @@ serotonin_happyness_null_empirical = dataHappyness %>%
 
 and visualise the results
 
-```{R}
+```R
 serotonin_happyness_null_empirical %>%
   visualise()+
   shade_p_value(serotonin_happyness_observed,
@@ -68,19 +68,19 @@ serotonin_happyness_null_empirical %>%
 
 get the associated p-value, even if the result should be expected after looking at the previous plot
 
-```{R}
+```R
 serotonin_p_value_happyness = serotonin_happyness_null_empirical %>%
   get_p_value(obs_stat = serotonin_happyness_observed,
               direction = "two-sided")
 ```
 and finally print the p-value corresponding to the test statistic of our observations.
-```{R}
+```R
 serotonin_p_value_happyness
 ```
 
 A shortcut for the above procedure, since it is available would be:
 
-```{R}
+```R
 t_test(x = dataHappyness, 
        formula = serotonin_level ~ happyness, 
        order = c("rarely_happy", "usually_happy"),
@@ -94,7 +94,7 @@ t_test(x = dataHappyness,
 As usual first we calculate the appropriate test statistic of our observations
 
 
-```{R}
+```R
 endorphin_happyness_observed = dataHappyness %>%
   specify(endorphin_level ~ happyness) %>%
   calculate(stat = "diff in means", order = c("rarely_happy", "usually_happy"))
@@ -102,7 +102,7 @@ endorphin_happyness_observed = dataHappyness %>%
 
 Then we calculate the null hypothesis by permutations
 
-```{R}
+```R
 endorphin_happyness_null_empirical = dataHappyness %>%
   specify(endorphin_level ~ happyness) %>%
   hypothesise(null = "independence") %>%
@@ -111,7 +111,7 @@ endorphin_happyness_null_empirical = dataHappyness %>%
 
 and visualise the relative standing of our observation
 
-```{R}
+```R
 endorphin_happyness_null_empirical %>%
   visualise()+
   shade_p_value(endorphin_happyness_observed,
@@ -120,7 +120,7 @@ endorphin_happyness_null_empirical %>%
 
 calculate the associated p-value
 
-```{R}
+```R
 endorphin_p_value_happyness = endorphin_happyness_null_empirical %>%
   get_p_value(obs_stat = endorphin_happyness_observed,
               direction = "two-sided")
@@ -134,7 +134,7 @@ endorphin_p_value_happyness
 
 Finally, in the same way we can use a shortcut
 
-```{R}t_test(x = dataHappyness, 
+```Rt_test(x = dataHappyness, 
        formula = endorphin_level ~ happyness, 
        order = c("rarely_happy", "usually_happy"),
        alternative = "two-sided")

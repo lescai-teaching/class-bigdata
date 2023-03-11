@@ -4,13 +4,13 @@
 
 We load the data with:
 
-```{R}
+```R
 dataExposure = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L10_stats_exercises/exercise_01/L10_dataset_exercise01.rds"))
 ```
 
 ## Data overview
 
-```{R}
+```R
 head(dataExposure)
 ```
 
@@ -19,7 +19,7 @@ head(dataExposure)
 First we calculate the observed statistic:
 
 
-```{R}
+```R
 observed_statistic_drinking <- dataExposure %>%
   specify(condition ~ drinking, success = "healthy") %>%
   hypothesize(null = "independence") %>%
@@ -29,7 +29,7 @@ observed_statistic_drinking <- dataExposure %>%
 Then we generate the null distribution using randomization:
 
 
-```{R}
+```R
 null_statistic_drinking <- dataExposure %>%
   specify(condition ~ drinking, success = "healthy") %>%
   hypothesize(null = "independence") %>%
@@ -38,7 +38,7 @@ null_statistic_drinking <- dataExposure %>%
 
 And finally we visualize both null distributions and the test statistic:
 
-```{R}
+```R
 null_statistic_drinking %>%
   visualize() + 
   shade_p_value(observed_statistic_drinking,
@@ -47,7 +47,7 @@ null_statistic_drinking %>%
 
 We can also get the p-value for a confirmation 
 
-```{R}
+```R
 null_statistic_drinking %>%
   get_p_value(
     obs_stat = observed_statistic_drinking,
@@ -62,7 +62,7 @@ null_statistic_drinking %>%
 Again, we first calculate the observed statistic
 
 
-```{R}
+```R
 observed_statistic_smoking <- dataExposure %>%
   specify(condition ~ smoking, success = "healthy") %>%
   hypothesize(null = "independence") %>%
@@ -71,7 +71,7 @@ observed_statistic_smoking <- dataExposure %>%
 
 Then we generate the null distribution using randomization
 
-```{R}
+```R
 null_statistic_smoking <- dataExposure %>%
   specify(condition ~ smoking, success = "healthy") %>%
   hypothesize(null = "independence") %>%
@@ -81,7 +81,7 @@ null_statistic_smoking <- dataExposure %>%
 
 And we visualize both null distributions and the test statistic!
 
-```{R}
+```R
 null_statistic_smoking %>%
   visualize() + 
   shade_p_value(observed_statistic_smoking,
@@ -90,7 +90,7 @@ null_statistic_smoking %>%
 
 We finally get the p-value associated with the statistic
 
-```{R}
+```R
 null_statistic_smoking %>%
   get_p_value(
     obs_stat = observed_statistic_smoking,
@@ -104,7 +104,7 @@ null_statistic_smoking %>%
 The procedure is the same, so we first calculate the observed statistic
 
 
-```{R}
+```R
 observed_statistic_sport <- dataExposure %>%
   specify(condition ~ sport, success = "healthy") %>%
   hypothesize(null = "independence") %>%
@@ -113,7 +113,7 @@ observed_statistic_sport <- dataExposure %>%
 
 We then generate the null distribution using randomization
 
-```{R}
+```R
 null_statistic_sport <- dataExposure %>%
   specify(condition ~ sport, success = "healthy") %>%
   hypothesize(null = "independence") %>%
@@ -124,14 +124,14 @@ null_statistic_sport <- dataExposure %>%
 
 And visualize both null distributions and the test statistic
 
-```{R}
+```R
 null_statistic_sport %>%
   visualize() + 
   shade_p_value(observed_statistic_sport,
                 direction = "greater")
 ```
 And finally confirm with the p-value
-```{R}
+```R
 null_statistic_sport %>%
   get_p_value(
     obs_stat = observed_statistic_sport,
@@ -141,7 +141,7 @@ null_statistic_sport %>%
 
 We could also have used a shortcut to the test and permutation like this:
 
-```{R}
+```R
 chisq_test(dataExposure, condition ~ sport)
 ```
 
