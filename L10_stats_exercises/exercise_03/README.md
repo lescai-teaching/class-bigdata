@@ -11,6 +11,13 @@ Data have been collected from a population of 5,000 cells, for three CD (cluster
 
 The intensity of each marker bound to an appropriate antibody has been assessed at the cytofluorimeter.
 
+You can load the data as follows:
+
+```R
+dataCytofluorimeter = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L10_stats_exercises/exercise_03/L10_dataset_exercise03.rds"))
+```
+
+
 
 ## Hypothesis
 
