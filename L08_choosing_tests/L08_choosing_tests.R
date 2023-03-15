@@ -319,9 +319,17 @@ head(carrierData)
 ## we have to transform the data
 
 carrierData = carrierData %>%
-  mutate(condition_reg = as.numeric(factor(condition, levels = c("control", "case"))) - 1)
+  mutate(
+    genotype_reg = case_when(
+      genotype == "0/0" ~ 0,
+      genotype == "0/1" ~ 1,
+      genotype == "1/1" ~ 2
+    ),
+    condition_reg = ifelse(condition == "control", 0, 1)
+  )
 
-genotype_test = glm(condition_reg ~ genotype, data = carrierData, family = "binomial")
+
+genotype_test = glm(condition_reg ~ genotype_reg, data = carrierData, family = "binomial")
 
 tidy(genotype_test)
 
