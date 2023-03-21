@@ -58,7 +58,7 @@ enzyme_rf_prediction  %>%
 ########################
 
 
-enzyme_intermediate_data = readRDS("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L14_modelling_supervised_regression/L14_dataset_enzyme_intermediate_data.rds")
+enzyme_intermediate_data = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L14_modelling_supervised_regression/L14_dataset_enzyme_intermediate_data.rds"))
 
 ### since the relationship is not linear
 ### we don't know which variable is not linearly correlated
@@ -118,7 +118,7 @@ enzyme_lm_prediction %>%
 ############################
 
 
-enzyme_mix_data = readRDS("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L14_modelling_supervised_regression/L14_dataset_enzyme_mix_data.rds")
+enzyme_mix_data = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L14_modelling_supervised_regression/L14_dataset_enzyme_mix_data.rds"))
 
 ## if we run
 ggpairs(enzyme_mix_data)
