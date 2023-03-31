@@ -157,4 +157,3 @@ phenotype_rf_prediction = bind_cols(
 precision(phenotype_rf_prediction, truth = phenotype, estimate = .pred_class)
 recall(phenotype_rf_prediction, truth = phenotype, estimate = .pred_class)
 f_meas(phenotype_rf_prediction, truth = phenotype, estimate = .pred_class)
-

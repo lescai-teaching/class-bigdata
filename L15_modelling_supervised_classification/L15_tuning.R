@@ -1,8 +1,4 @@
 
-################################################
-### TUNING A WORKFLOW ##########################
-################################################
-
 library(tidymodels)
 library(tidyverse)
 
@@ -113,15 +109,15 @@ rf_tuning_results %>%
 
 ## and we can select the model in a model object
 
-rf_tuning_best_model = rf_tuning_results %>%
+rf_tuning_best_params = rf_tuning_results %>%
   select_best("accuracy")
 
-### in order to USE the model for predictions
+### in order to USE the params for predictions
 ### we need to "finalise" the workflow after tuning
 ### using the best model we just saved
 
 final_rf_wf <- rf_class_tune_wf %>% 
-  finalize_workflow(rf_tuning_best_model)
+  finalize_workflow(rf_tuning_best_params)
 
 ## and do a "last" fit on the split data which will automatically
 ## run on the test split
@@ -138,3 +134,27 @@ final_rf_fit %>%
   collect_predictions() %>% 
   roc_curve(phenotype, .pred_control) %>% 
   autoplot()
+
+
+### we can also inspect the model itself
+### by using the best params and saving the model
+### instead of a final workflow
+
+rf_tuning_best_model <- finalize_model(
+  rf_model_tuning, ## this is the model we initially created with tune placeholders
+  rf_tuning_best_params ## these are the best parameters identified in tuning
+)
+
+
+library(vip)
+
+
+rf_tuning_best_model %>%
+  set_engine("ranger", importance = "permutation") %>%
+  fit(
+    as.formula(
+    paste0("phenotype ~ ", paste0(predictors, collapse = " + "))
+    ),
+    data = variants_new_testing
+  ) %>%
+  vip(geom = "point")
