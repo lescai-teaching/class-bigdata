@@ -62,16 +62,14 @@ rf_class_tune_wf <- workflow() %>%
 ## the following code might take a while
 ## in case too long, stop and load results
 
-rf_tuning_results <- 
-  rf_class_tune_wf %>% 
-  tune_grid(
-    resamples = variants_folds,
-    grid = rf_tuning_grid
-  )
+# rf_tuning_results <- 
+#   rf_class_tune_wf %>% 
+#   tune_grid(
+#     resamples = variants_folds,
+#     grid = rf_tuning_grid
+#   )
 
-saveRDS(rf_tuning_results, file = "L15_dataset_rf_tuning_results.rds")
-
-# rf_tuning_results = readRDS("L15_dataset_rf_tuning_results.rds")
+rf_tuning_results = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L15_modelling_supervised_classification/L15_dataset_rf_tuning_results.rds"))
 
 ### we can inspect the outcome metrics as usual
 
