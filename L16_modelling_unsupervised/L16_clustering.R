@@ -73,3 +73,144 @@ k_means_fit %>% sse_ratio()
 # the observations within clusters are closer (more similar) 
 # to each other than they are to the other clusters.
 
+
+##################################
+##### more complex data
+##################################
+
+dataCellCulture = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L16_modelling_unsupervised/L16_dataset_cellculture_advanced.rds"))
+
+# To explore the dataset and identify any correlations 
+# between the variables, you can use the GGally::ggpairs() function:
+
+ggpairs(dataCellCulture)
+
+
+####################################
+### K-MEANS CLUSTERING #############
+####################################
+
+## we prepare a k-means clustering
+## this time we don't know how many clusters
+## if we look at metabolite 1 versus all the other metabolite
+## it looks like there are 8 groups but we don't have much support for this
+
+
+k_means_model <- k_means(
+  num_clusters = 8
+) %>% 
+  set_engine("stats") %>% 
+  set_mode("partition")
+
+
+culture_k_means_fit <- k_means_model %>% 
+  fit(
+    formula = ~.,
+    data = dataCellCulture
+  )
+
+## let's look at the overall score
+#### WSS / TSS ratio as summary
+
+culture_k_means_fit %>% sse_ratio()
+
+
+### let's put the assignments together with the data
+### but instead of using bind cols, we can use a more
+### convenient function called "augment"
+
+clustered_culture = culture_k_means_fit %>%
+  augment(dataCellCulture)
+
+### let's inspect how it looks like
+clustered_culture
+
+## and use this to plot again our ggpairs
+
+ggpairs(clustered_culture, columns = 1:6, aes(colour = .pred_cluster))
+
+
+####################################
+### HIERARCHICAL CLUSTERING ########
+####################################
+
+hc_model <- hier_clust(
+  num_clusters = 8,
+  linkage_method = "ward.D2"
+  ) %>% 
+  set_engine("stats") %>% 
+  set_mode("partition")
+
+
+culture_hc_fit <- hc_model %>% 
+  fit(
+    formula = ~.,
+    data = dataCellCulture
+  )
+
+## let's look at the overall score
+#### WSS / TSS ratio as summary
+
+culture_hc_fit %>% sse_ratio()
+
+## this is higher than the k-means clustering
+
+## the dendrogram can be plotted
+
+culture_hc_fit$fit %>% plot()
+
+## not particularly informative
+
+
+hc_clustered_culture = culture_hc_fit %>%
+  augment(dataCellCulture)
+
+
+### let's inspect
+
+hc_clustered_culture
+
+## and use this to plot again our ggpairs
+
+ggpairs(hc_clustered_culture, columns = 1:6, aes(colour = .pred_cluster))
+
+
+
+###################################################
+### feature engineering approach with PCA #########
+###################################################
+
+
+culture_feature_eng_recipe <- recipe(~., data = dataCellCulture) %>% 
+  step_normalize(all_numeric()) %>% 
+  step_pca(all_numeric(), num_comp = 2) ## we are reducing the number of dimension to less than half
+
+
+culture_feature_eng_wf <- workflow() %>% 
+  add_model(k_means_model) %>% 
+  add_recipe(culture_feature_eng_recipe)
+
+
+culture_engineered_fit <- culture_feature_eng_wf %>% 
+  fit(dataCellCulture)
+
+
+## let's look at the overall score
+#### WSS / TSS ratio as summary
+
+culture_engineered_fit %>% sse_ratio()
+
+### the score is improved significantly
+
+
+k_eng_clustered_culture = culture_engineered_fit %>%
+  augment(dataCellCulture)
+
+
+### let's inspect
+
+k_eng_clustered_culture
+
+## and use this to plot again our ggpairs
+
+ggpairs(k_eng_clustered_culture, columns = 1:6, aes(colour = .pred_cluster))
