@@ -7,7 +7,7 @@ library(GGally)
 
 
 
-cytofluorimeter_data = readRDS(url("L16_dataset_cytofluorimeter.rds"))
+cytofluorimeter_data = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L16_modelling_unsupervised/L16_dataset_cytofluorimeter.rds"))
 
 
 
