@@ -165,6 +165,10 @@ culture_hc_fit$fit %>% plot()
 hc_clustered_culture = culture_hc_fit %>%
   augment(dataCellCulture)
 
+hc_clustered_culture = bind_cols(
+  dataCellCulture,
+  culture_hc_fit %>% extract_cluster_assignment()
+)
 
 ### let's inspect
 
@@ -172,7 +176,7 @@ hc_clustered_culture
 
 ## and use this to plot again our ggpairs
 
-ggpairs(hc_clustered_culture, columns = 1:6, aes(colour = .pred_cluster))
+ggpairs(hc_clustered_culture, columns = 1:6, aes(colour = .cluster))
 
 
 
