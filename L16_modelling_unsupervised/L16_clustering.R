@@ -161,10 +161,6 @@ culture_hc_fit$fit %>% plot()
 
 ## not particularly informative
 
-
-hc_clustered_culture = culture_hc_fit %>%
-  augment(dataCellCulture)
-
 hc_clustered_culture = bind_cols(
   dataCellCulture,
   culture_hc_fit %>% extract_cluster_assignment()
