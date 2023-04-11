@@ -1,0 +1,18 @@
+##fileformat=VCFv4.0
+##fileDate=20090805
+##phasing=partial
+##FILTER=<ID=q10,Description="Quality below 10">
+##FILTER=<ID=s50,Description="Less than 50% of samples have data">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##ALT=<ID=DEL:ME:ALU,Description="Deletion of ALU element">
+##ALT=<ID=CNV,Description="Copy number variable region">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	NA00001
+chr19	111	.	A	C	9.6	PASS	.	GT	0|0
+chr19	112	.	A	G	10	PASS	.	GT	0|0
+chr20	14370	.	G	A	29	PASS	.	GT	0|0
+chr20	17330	.	T	A	3	q10	.	GT	0|0
+chr20	1110696	.	A	G,T	67	PASS	.	GT	1|2
+chr20	1230237	.	T	.	47	PASS	.	GT	0|0
+chr20	1234567	.	G	GA,GAC	50	PASS	.	GT	0/1
+chr20	1235237	.	T	.	.	.	.	GT	0/0
+chrX	10	.	AC	A,ATG	10	PASS	.	GT	0/1
