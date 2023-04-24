@@ -1,0 +1,9 @@
+record	category	value
+a	cat1	20
+b	cat1	30
+c	cat2	12
+d	cat1	34
+e	cat2	23
+f	cat1	22
+g	cat2	43
+h	cat2	12
