@@ -9,4 +9,3 @@ The script should however write in the log file:
 - the date and time it started
 - the date and time it ended
 - the job ID and node it runs on
-
