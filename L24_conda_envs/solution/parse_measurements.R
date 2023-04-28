@@ -1,7 +1,7 @@
 #!/bin/Rscript
 
 library(tidyverse)
-measures = read_delim("cell_measurements.R", delim=";")
+measures = read_delim("cell_measurements.txt", delim=";")
 
 res = measures %>%
 group_by(type) %>%
