@@ -5,6 +5,9 @@
 #SBATCH --job-name LMreg
 #SBATCH -p short
 
+module load anaconda3-2023.03
+conda activate parallel-modelling
+
 echo "executing model fitting"
 date
 
