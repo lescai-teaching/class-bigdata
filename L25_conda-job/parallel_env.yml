@@ -1,0 +1,11 @@
+name: parallel-modelling
+channels:
+  - bioconda
+  - conda-forge
+  - r
+  - defaults
+dependencies:
+  - r-tidyverse
+  - r-tidymodels
+  - r-doparallel
+  - r-ranger
