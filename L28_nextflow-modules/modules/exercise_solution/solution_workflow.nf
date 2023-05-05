@@ -6,6 +6,6 @@ input_ch = Channel.fromPath(params.input)
 include { SUMMARISE } from "./solution_module.nf"
 
 workflow {
-	ch_rscript = Channel.value(file("$projectDir/assets/summarise.R"))
+	ch_rscript = Channel.value(file("$projectDir/summarise.R"))
     SUMMARISE( input_ch, ch_rscript )
 }
