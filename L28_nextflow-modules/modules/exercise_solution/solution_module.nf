@@ -19,7 +19,7 @@ process SUMMARISE {
 
 	script:
 	"""
-	Rscript $rscriptfile
+	Rscript $rscriptfile $dataset
 	"""
 
 
