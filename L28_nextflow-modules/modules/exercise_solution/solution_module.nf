@@ -2,7 +2,7 @@ process SUMMARISE {
 	tag "summarising"
 	label 'process_low'
 
-	publishDir "${params.outdir}/results"
+	publishDir "${params.outdir}/results", mode: 'copy'
 
 	conda "r-tidyverse:1.2.1"
 	container "${ workflow.containerEngine == 'singularity' ?
