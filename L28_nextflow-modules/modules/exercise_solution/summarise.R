@@ -1,5 +1,7 @@
 #!/usr/bin/Rscript
 
+library(tidyverse)
+
 babynames = readRDS("L11_dataset_babynames.rds")
 summary = babynames %>%
 group_by(year) %>%
