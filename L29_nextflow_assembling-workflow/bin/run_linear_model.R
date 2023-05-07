@@ -8,13 +8,16 @@ input  = args[1]
 cores  = args[2]
 output = args[3]
 
+writeLines("receiving data")
 biodegradation_data = readRDS(input)
 
+writeLines("splitting dataset")
 set.seed(367)
 biodegradation_data_split = initial_split(biodegradation_data, prop = 0.75)
 biodegradation_data_training = training(biodegradation_data_split)
 biodegradation_data_testing = testing(biodegradation_data_split)
 
+writeLines("assembling workflow")
 lm_model <-
     linear_reg(
         penalty = tune(),
@@ -24,7 +27,7 @@ lm_model <-
 
 lm_tuning_grid <- grid_regular(penalty(),
     mixture(range = c(0.3,0.7)),
-    levels = 5)
+    levels = 3)
 
 biodegradation_recipe <- 
     recipe(biodegradation_rate ~ ., 
@@ -40,10 +43,12 @@ biodegradation_lm_workflow <- workflow() %>%
 set.seed(234)
 biodegradation_folds <- vfold_cv(biodegradation_data_training)
 
+writeLines(paste0("creating cluster with ", cores, "cores"))
 library(doParallel) 
 cl <- makePSOCKcluster(cores) ## the argument is set dynamically based on inputs
 registerDoParallel(cl)
 
+writeLines("starting tuning")
 lm_tuning_results <- 
     biodegradation_lm_workflow %>% 
     tune_grid(
@@ -51,6 +56,7 @@ lm_tuning_results <-
         grid = lm_tuning_grid
     )
 
+writeLines("tuning complete - collecting metrics")
 tuning_metrics = lm_tuning_results %>%
   collect_metrics()
 write_tsv(tuning_metrics, file = paste0(output, "_lm_tuning_metrics.tsv"))
@@ -64,6 +70,7 @@ lm_tuning_best_params = lm_tuning_results %>%
 ### we need to "finalise" the workflow after tuning
 ### using the best model we just saved
 
+writeLines("finalising workflow")
 final_lm_wf <- biodegradation_lm_workflow %>% 
   finalize_workflow(lm_tuning_best_params)
 
@@ -81,6 +88,8 @@ final_metrics = final_lm_fit %>%
   collect_metrics()
 write_tsv(final_metrics, file = paste0(output, "_lm_final_metrics.tsv"))
 
+writeLines("plotting predictions")
+
 pdf(paste0(output, "_lm_predictions_plot.pdf"))
 final_lm_fit %>%
   collect_predictions() %>% 
@@ -95,6 +104,7 @@ lm_tuning_best_model <- finalize_model(
   lm_tuning_best_params
 )
 
+writeLines("creating importance plot")
 
 library(vip)
 

@@ -8,14 +8,17 @@ input  = args[1]
 cores  = args[2]
 output = args[3]
 
+writeLines("getting data")
 biodegradation_data = readRDS(input)
 
+writeLines("splitting data")
 set.seed(367)
 biodegradation_data_split = initial_split(biodegradation_data, prop = 0.75)
 biodegradation_data_training = training(biodegradation_data_split)
 biodegradation_data_testing = testing(biodegradation_data_split)
 
 
+writeLines("assembling workflow")
 
 rf_model_tuning <- rand_forest(
     mtry = tune(),
@@ -30,7 +33,7 @@ rf_tuning_grid <- grid_regular(
 	mtry(range = c(5L,8L)),
     trees(),
     min_n(),
-    levels = 5)
+    levels = 3)
 
 
 
@@ -48,12 +51,13 @@ rf_regression_tune_wf <- workflow() %>%
 set.seed(234)
 biodegradation_folds <- vfold_cv(biodegradation_data_training)
 
+writeLines(paste0("creating cluster with ", cores, "cores"))
 library(doParallel) 
 cl <- makePSOCKcluster(cores) ## the argument is set dynamically based on inputs
 registerDoParallel(cl)
 
 
-
+writeLines("beging tuning")
 rf_tuning_results <- 
     rf_regression_tune_wf %>% 
     tune_grid(
@@ -61,12 +65,14 @@ rf_tuning_results <-
     grid = rf_tuning_grid
     )
 
+writeLines("tuning completed - collecting metrics")
 
 rf_tuning_results %>% 
     collect_metrics() %>%
     write_tsv(file = paste0(output, "_randomforest_tuning_metrics.tsv"))
 
 
+writeLines("finalising workflow")
 
 rf_tuning_best_params = rf_tuning_results %>%
     select_best("accuracy")
@@ -84,6 +90,7 @@ final_metrics = final_rf_fit %>%
     collect_metrics()
 write_tsv(final_metrics, file = paste0(output, "_randomforest_final_metrics.tsv"))
 
+writeLines("plotting predictions")
 
 pdf(paste0(output, "_rf_roc-curve_plot.pdf"))
 final_rf_fit %>%
@@ -97,6 +104,7 @@ rf_tuning_best_model <- finalize_model(
     rf_tuning_best_params ## these are the best parameters identified in tuning
 )
 
+writeLines("plotting importance")
 
 library(vip)
 
