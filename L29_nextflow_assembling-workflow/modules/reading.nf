@@ -3,12 +3,14 @@ process READ_DATA {
 	tag "import"
 	label 'process_low'
 
+	cpus   = 1
+    memory = 1.GB
+
 	publishDir "${params.outdir}/preprocess", mode: 'copy'
 
-	conda "r-tidyverse:1.2.1"
 	container "${ workflow.containerEngine == 'singularity' ?
-        'https://depot.galaxyproject.org/singularity/r-tidyverse:1.2.1' :
-        'quay.io/biocontainers/r-tidyverse:1.2.1' }"
+        'library://lescailab/bigdata/bigdata-rstudio:1.4.0' :
+        'ghcr.io/lescai-teaching/bigdata-rstudio:1.4.0' }"
 	
 	input:
 	path tsvfile
@@ -19,7 +21,7 @@ process READ_DATA {
 	script:
 	"""
 	run_import.R \
-	--input $tsvfile
+	$tsvfile
 	"""
 
 }

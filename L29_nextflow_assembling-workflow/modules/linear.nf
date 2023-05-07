@@ -4,8 +4,8 @@ process LINEARMODEL {
     tag "linear"
 	label 'process_medium'
 
-	cpus = 4
-	memory = 20.GB
+	cpus = params.max_cpus
+	memory = params.max_memory
 
 	publishDir "${params.outdir}/results/linear_model", mode: 'copy'
     
@@ -24,9 +24,9 @@ process LINEARMODEL {
 	script:
 	"""
     run_linear_model.R \
-	--input $dataset \
-	--cores ${task.cpus} \
-	--output "LM_results"
+	$dataset \
+	${task.cpus} \
+	"LM_results"
 	"""
 
 }

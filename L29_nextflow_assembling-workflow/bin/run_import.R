@@ -2,13 +2,9 @@
 
 library(tidyverse)
 
-parser <- ArgumentParser()
+args   = commandArgs(trailingOnly=TRUE)
+input  = args[1]
 
-parser$add_argument("-i", "--input", action="store_true", default=TRUE,
-    help="An input is necessary to import data in a TSV format")
-
-args <- parser$parse_args()
-
-dataset = read_tsv(args$input)
+dataset = read_tsv(input)
 
 saveRDS(dataset, file = "input_dataset.rds")

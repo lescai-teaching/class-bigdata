@@ -4,8 +4,8 @@ process RANDOMFOREST {
     tag "randomforest"
 	label 'process_medium'
 
-	cpus = 4
-	memory = 20.GB
+	cpus = params.max_cpus
+	memory = params.max_memory
 
 	publishDir "${params.outdir}/results/random_forest", mode: 'copy'
     
@@ -24,9 +24,9 @@ process RANDOMFOREST {
 	script:
 	"""
     run_random_forest.R \
-	--input $dataset \
-	--cores ${task.cpus} \
-	--output "RF_results"
+	$dataset \
+	${task.cpus} \
+	"RF_results"
 	"""
 
 }
