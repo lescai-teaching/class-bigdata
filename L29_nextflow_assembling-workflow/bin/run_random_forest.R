@@ -93,12 +93,12 @@ write_tsv(final_metrics, file = paste0(output, "_randomforest_final_metrics.tsv"
 
 writeLines("plotting predictions")
 
-pdf(paste0(output, "_rf_roc-curve_plot.pdf"))
-final_rf_fit %>%
-    collect_predictions() %>% 
-    roc_curve(biodegradation_rate, .pred_control) %>% 
-    autoplot()
-dev.off()
+# pdf(paste0(output, "_rf_prediction_plot.pdf"))
+# final_rf_fit %>%
+#     collect_predictions() %>% 
+#     roc_curve(biodegradation_rate, .pred_control) %>% 
+#     autoplot()
+# dev.off()
 
 rf_tuning_best_model <- finalize_model(
     rf_model_tuning, ## this is the model we initially created with tune placeholders
