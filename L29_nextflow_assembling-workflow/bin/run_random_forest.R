@@ -41,7 +41,10 @@ biodegradation_recipe <-
     recipe(biodegradation_rate ~ ., 
         data = biodegradation_data_training) %>% 
     step_normalize(all_predictors())
-
+biodegradation_recipe <- 
+    recipe(biodegradation_rate ~ ., 
+        data = biodegradation_data_training) %>% 
+    step_normalize(all_predictors())
 
 rf_regression_tune_wf <- workflow() %>% 
     add_model(rf_model_tuning) %>% 
