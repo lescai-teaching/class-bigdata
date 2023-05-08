@@ -44,10 +44,12 @@ set.seed(234)
 biodegradation_folds <- vfold_cv(biodegradation_data_training)
 
 # this code seems to get stuck in creating the cluster
-# writeLines(paste0("creating cluster with ", cores, "cores"))
-# library(doParallel) 
-# cl <- makePSOCKcluster(cores) ## the argument is set dynamically based on inputs
-# registerDoParallel(cl)
+writeLines("loading doParallel library")
+library(doParallel) 
+writeLines(paste0("creating cluster with ", cores, "cores"))
+cl <- makeCluster(cores) ## the argument is set dynamically based on inputs
+writeLines("registering the cluster")
+registerDoParallel(cl)
 
 writeLines("starting tuning")
 lm_tuning_results <- 
