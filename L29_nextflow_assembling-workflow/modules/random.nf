@@ -27,6 +27,7 @@ process RANDOMFOREST {
 	$dataset \
 	${task.cpus} \
 	"RF_results"
+	sleep 60
 	"""
 
 }
