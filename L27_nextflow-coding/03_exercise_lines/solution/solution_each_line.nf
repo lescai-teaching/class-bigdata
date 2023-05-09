@@ -16,8 +16,8 @@ process splitLines {
     count=0
     while read -r line
     do
-    ((count++))
-    echo \$line >line_\$count
+        let "count+=1"
+        echo \$line >line_\$count
     done < $file
     """
 }
