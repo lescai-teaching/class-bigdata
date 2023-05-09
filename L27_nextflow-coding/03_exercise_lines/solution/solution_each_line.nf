@@ -9,7 +9,7 @@ process splitLines {
     path file
 
     output:
-    file 'line_*'
+    path "line_*"
 
     script:
     """
@@ -18,7 +18,7 @@ process splitLines {
     do
     ((count++))
     echo \$line >line_\$count
-    done <$file
+    done < $file
     """
 }
 
