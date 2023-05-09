@@ -24,8 +24,7 @@ process RANDOMFOREST {
     run_random_forest.R \
 	$dataset \
 	${task.cpus} \
-	"RF_results"
-	sleep 60
+	"RF_results
 	"""
 
 }
