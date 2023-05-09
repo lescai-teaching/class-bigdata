@@ -1,4 +1,3 @@
-
 process RANDOMFOREST {
 
     tag "randomforest"
@@ -17,7 +16,6 @@ process RANDOMFOREST {
 	path dataset
 
 	output:
-	path "*.rds", emit: rdata
 	path "*.tsv", emit: tables
 	path "*.pdf", emit: plots
 
