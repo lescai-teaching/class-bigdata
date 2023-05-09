@@ -24,7 +24,7 @@ process RANDOMFOREST {
     run_random_forest.R \
 	$dataset \
 	${task.cpus} \
-	"RF_results
+	"RF_results"
 	"""
 
 }
