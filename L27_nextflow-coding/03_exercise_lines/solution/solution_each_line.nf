@@ -11,6 +11,7 @@ process splitLines {
     output:
     file 'line_*'
 
+    script:
     """
     count=0
     while read -r line
