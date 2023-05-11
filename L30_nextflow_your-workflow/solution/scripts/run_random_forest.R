@@ -62,14 +62,19 @@ rf_workflow_prediction <- bind_cols(
     predict(metastasis_risk_data_testing, type = "prob")
 )
 
+risk_levels = c("High", "Medium", "Low")
+
 writeLines("######### generating ROC curve plot")
 pdf("randomforest_ROC_plot.pdf")
 rf_workflow_prediction %>% 
+  mutate(
+    metastasis_risk = factor(metastasis_risk, levels = risk_levels),
+    .pred_class = factor(.pred_class, levels = risk_levels)
+  ) %>%
   roc_curve(metastasis_risk, .pred_Low, .pred_Medium, .pred_High) %>% 
   autoplot()
 dev.off()
 
-risk_levels = c("High", "Medium", "Low")
 
 writeLines("######### generating confusion matrix plot")
 pdf("randomforest_confusion-matrix_plot.pdf")
