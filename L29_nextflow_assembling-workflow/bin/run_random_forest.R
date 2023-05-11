@@ -56,7 +56,7 @@ biodegradation_folds <- vfold_cv(biodegradation_data_training)
 writeLines("loading doParallel library")
 library(doParallel) 
 writeLines("registering parallel without creating the cluster")
-registerDoParallel(cores=2)
+registerDoParallel(cores=cores)
 
 
 writeLines("beging tuning")

@@ -76,7 +76,6 @@ writeLines("finalising workflow")
 final_lm_wf <- biodegradation_lm_workflow %>% 
   finalize_workflow(lm_tuning_best_params)
 
-saveRDS(final_lm_wf, file = paste0(output, "_selected_lm_workflow.rds"))
 
 ## and do a "last" fit on the split data which will automatically
 ## run on the test split
