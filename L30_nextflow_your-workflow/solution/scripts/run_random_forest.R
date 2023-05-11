@@ -91,7 +91,7 @@ dev.off()
 writeLines("######### ")
 library(vip)
 
-
+pdf("randomforest_importance_plot.pdf")
 rf_model %>%
   set_engine("ranger", importance = "permutation") %>%
   fit(
@@ -100,3 +100,4 @@ rf_model %>%
       mutate(metastasis_risk = factor(metastasis_risk, levels = risk_levels))
   ) %>%
   vip(geom = "point")
+dev.off()
