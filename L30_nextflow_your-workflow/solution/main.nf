@@ -6,7 +6,7 @@ input_ch = Channel.fromPath(params.input)
 // load modules
 include { READ_DATA                } from './modules/reading.nf'
 include { RUNMODEL as LOGREG       } from './modules/runmodel.nf'
-include { RUNMODEL as RANDOMFOREST } from './modules/rummodel.nf'
+include { RUNMODEL as RANDOMFOREST } from './modules/runmodel.nf'
 
 // run workflow
 workflow {
