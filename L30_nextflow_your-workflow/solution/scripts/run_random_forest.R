@@ -75,12 +75,8 @@ writeLines("######### generating confusion matrix plot")
 pdf("randomforest_confusion-matrix_plot.pdf")
 rf_workflow_prediction %>% 
   mutate(
-    metastasis_risk = factor(metastasis_risk),
-    .pred_class = factor(.pred_class)
-  ) %>% 
-  mutate(
-    metastasis_risk = fct_relevel(metastasis_risk, risk_levels),
-    .pred_class = fct_relevel(.pred_class, risk_levels)
+    metastasis_risk = factor(metastasis_risk, levels = risk_levels),
+    .pred_class = factor(.pred_class, levels = risk_levels)
   ) %>% 
   conf_mat(truth = metastasis_risk, estimate = .pred_class) %>% 
   autoplot(type = "heatmap")
