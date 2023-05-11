@@ -20,7 +20,7 @@ process READ_DATA {
 
 	script:
 	"""
-	run_import.R \
+	Rscript ${projectDir}/scripts/run_import.R \
 	$tsvfile
 	"""
 
