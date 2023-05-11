@@ -96,8 +96,7 @@ rf_model %>%
   set_engine("ranger", importance = "permutation") %>%
   fit(
     metastasis_risk ~ .,
-    data = metastasis_risk_data_testing
+    data = metastasis_risk_data_testing %>% 
+      mutate(metastasis_risk = factor(metastasis_risk, levels = risk_levels))
   ) %>%
   vip(geom = "point")
-
-
