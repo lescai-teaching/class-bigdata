@@ -23,7 +23,7 @@ process RUNMODEL {
 
 	script:
 	"""
-    $rscript \
+    Rscript $rscript \
 	$dataset \
 	${task.cpus} \
 	$modeltype
