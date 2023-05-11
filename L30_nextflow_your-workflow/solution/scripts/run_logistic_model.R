@@ -62,6 +62,10 @@ logreg_wf_prediction <-
 writeLines("######### plot confusion matrix")
 pdf("logreg_confusion-matrix_plot.pdf")
 logreg_wf_prediction %>% 
+  mutate(
+    metastasis_risk = factor(metastasis_risk),
+    .pred_class = factor(.pred_class)
+  ) %>% 
   conf_mat(truth = metastasis_risk, estimate = .pred_class) %>% 
   autoplot(type = "heatmap")
 dev.off()
