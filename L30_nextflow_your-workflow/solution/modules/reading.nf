@@ -14,13 +14,14 @@ process READ_DATA {
 	
 	input:
 	path tsvfile
+	path rscriptfile
 
 	output:
 	path "*.rds", emit: dataset
 
 	script:
 	"""
-	Rscript ${projectDir}/scripts/run_import.R \
+	Rscript $rscriptfile \
 	$tsvfile
 	"""
 

@@ -10,7 +10,7 @@ include { RUNMODEL as RANDOMFOREST } from './modules/runmodel.nf'
 
 // run workflow
 workflow {
-	READ_DATA( input_ch )
+	READ_DATA( input_ch, "$projectDir/scripts/run_import.R " )
 	LOGREG( READ_DATA.out.dataset, "$projectDir/scripts/run_logistic_model.R", "logreg" )
 	RANDOMFOREST( READ_DATA.out.dataset, "$projectDir/scripts/run_random_forest.R", "randomforest" )
 }
