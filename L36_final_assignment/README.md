@@ -17,3 +17,5 @@ Please analyse this dataset using the most appropriate methods. Prepare a report
 Provide evidence, if appropriate, of relationships of dependencies in the dataset, explaining how some of the variables might influence your findings.
 
 Discuss in the report, where appropriate, any biological background which might support your findings.
+
+Use the most appropriate computing environment to carry out this work, and explain the code and the choice you made in a dedicated section of the report.
