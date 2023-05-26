@@ -6,7 +6,7 @@ The file `L36_dataset_epigenomics.tsv` contains a dataset with the following var
 
 - methylation_level: level of methylation of different genomics regions
 - H3K36me3_level: level of methylation of Histone 3 Lysine 36 of different genomics regions
-- H3K27ac_level: level of methylation of Histone 3 Lysine 27 of different genomics regions
+- H3K27ac_level: level of acetylation of Histone 3 Lysine 27 of different genomics regions
 - H3K4me1_level: level of methylation of Histone 3 Lysine 4 of different genomics regions
 - H4K16ac: level of acetylation of Histone 4 Lysine 16 of different genomics regions
 
