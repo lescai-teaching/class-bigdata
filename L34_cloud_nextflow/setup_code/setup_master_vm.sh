@@ -16,7 +16,7 @@ sudo yum install -y screen
 ## only after these tools are installed
 ## we can install nextflow as well
 
-export NXF_VER=23.04.1
+export NXF_VER=24.04.1
 export NXF_MODE=google
 mkdir nfbin
 cd nfbin
