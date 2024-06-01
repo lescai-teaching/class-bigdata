@@ -19,7 +19,7 @@ blood_pressure_data_testing <- testing(blood_pressure_data_split)
 
 saveRDS(blood_pressure_data_split, paste0(output, "_initial_split.rds"))
 saveRDS(blood_pressure_data_training, paste0(output, "_training_split.rds"))
-saveRDS(blood_pressure_data_testing, , paste0(output, "_testing_split.rds"))
+saveRDS(blood_pressure_data_testing, paste0(output, "_testing_split.rds"))
 
 
 ############################
