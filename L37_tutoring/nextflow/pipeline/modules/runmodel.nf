@@ -21,6 +21,7 @@ process RUNMODEL {
 	path "*.rds", emit: model
 	path "*tsv", emit: tables
 	path "*.pdf", emit: plots
+	path "*.RData", emit: workspace
 
 	script:
 	"""
