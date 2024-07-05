@@ -37,7 +37,7 @@ logreg_model <- logistic_reg() %>%
 # Create the recipe
 logreg_recipe <- 
   recipe(presence_metastasis ~ .,
-         data = cancer_classtype_data) %>% 
+         data = cancer_classtype_data_training) %>% 
   step_dummy(all_nominal_predictors()) %>%
   step_normalize()
 
