@@ -4,7 +4,7 @@ library(tidymodels)
 library(tidyclust)
 library(GGally)
 
-metastasis_risk_data = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L18_modelling_exercises/L18_dataset_metastasis_risk_data.rds"))
+metastasis_risk_data = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L18_modelling_exercises/L18_dataset_metastasis_risk_data.rds"))
 
 ggpairs(metastasis_risk_data, aes(colour = metastasis_risk))
 
@@ -48,6 +48,49 @@ logreg_wf_prediction %>% metrics(truth = metastasis_risk, estimate = .pred_class
 logreg_wf_prediction %>% 
   conf_mat(truth = metastasis_risk, estimate = .pred_class)
 
+
+
+#### --> we have used a normal logistic regression for a THREE classes outcome
+
+
+
+multinomreg_model <- multinom_reg() %>% 
+  set_mode("classification") %>% 
+  set_engine("nnet")
+
+multinomreg_recipe <- recipe(metastasis_risk ~ .,
+                        data = metastasis_risk_data_training) %>% 
+  step_zv() %>% 
+  step_normalize(all_numeric_predictors()) %>% 
+  step_dummy(all_nominal_predictors())
+
+multinomreg_wf <- workflow() %>% 
+  add_recipe(multinomreg_recipe) %>% 
+  add_model(multinomreg_model)
+
+multinomreg_wf_fit <- fit(
+  multinomreg_wf,
+  metastasis_risk_data_training
+)
+
+
+multinomreg_wf_prediction <-
+  bind_cols(
+    metastasis_risk_data_testing,
+    multinomreg_wf_fit %>% 
+      predict(metastasis_risk_data_testing),
+    multinomreg_wf_fit %>% 
+      predict(metastasis_risk_data_testing, type = "prob")
+  )
+
+
+multinomreg_wf_prediction %>% metrics(truth = metastasis_risk, estimate = .pred_class)
+
+multinomreg_wf_prediction %>% 
+  conf_mat(truth = metastasis_risk, estimate = .pred_class)
+
+
+######################
 
 
 
@@ -94,6 +137,13 @@ rf_workflow_prediction %>%
 
 rf_workflow_prediction %>% 
   precision(truth = metastasis_risk, estimate = .pred_class)
+
+
+### what's the problem?
+### let's inspect it with a confusion matrix
+
+rf_workflow_prediction %>% 
+  conf_mat(truth = metastasis_risk, estimate = .pred_class)
 
 rf_workflow_prediction %>% 
   recall(truth = metastasis_risk, estimate = .pred_class)

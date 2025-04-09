@@ -116,6 +116,60 @@ Prediction  Low Medium High
 ```
 The above table shows that basically no values in the High Risk group have been predicted by our model: this explains why the accuracy in our metrics was not bad but in reality the Cohen's Kappa value was pretty low.
 
+## Multinomial Logistic Regression
+
+The real problem is that we used simple logistic regression for an outcome which we can see has three classes. This is not correct, and we should therefore switch to a multinomia logistic regression, by simply changing the model structure to
+
+```R
+multinomreg_model <- multinom_reg() %>% 
+  set_mode("classification") %>% 
+  set_engine("nnet")
+```
+
+We are using a *neural network* ("nnet") engine here, because the engine "glmnet" would require us to perform regularisation.
+
+The rest of the code is pretty much the same
+
+```R
+multinomreg_recipe <- recipe(metastasis_risk ~ .,
+                        data = metastasis_risk_data_training) %>% 
+  step_zv() %>% 
+  step_normalize(all_numeric_predictors()) %>% 
+  step_dummy(all_nominal_predictors())
+
+multinomreg_wf <- workflow() %>% 
+  add_recipe(multinomreg_recipe) %>% 
+  add_model(multinomreg_model)
+
+multinomreg_wf_fit <- fit(
+  multinomreg_wf,
+  metastasis_risk_data_training
+)
+
+
+multinomreg_wf_prediction <-
+  bind_cols(
+    metastasis_risk_data_testing,
+    multinomreg_wf_fit %>% 
+      predict(metastasis_risk_data_testing),
+    multinomreg_wf_fit %>% 
+      predict(metastasis_risk_data_testing, type = "prob")
+  )
+
+```
+
+This time though when we plot a confusion matrix we can see
+
+```R
+multinomreg_wf_prediction %>% 
++   conf_mat(truth = metastasis_risk, estimate = .pred_class)
+          Truth
+Prediction  Low Medium High
+    Low    2180      6   33
+    Medium    3      1    0
+    High     25      2   26
+```
+
 
 ## Random Forest model
 
