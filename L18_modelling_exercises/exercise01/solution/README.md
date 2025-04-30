@@ -6,7 +6,7 @@
 First we load the data with:
 
 ```R
-biodegradation_data = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L18_modelling_exercises/L18_dataset_biodegradation_data.rds"))
+biodegradation_data = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L18_modelling_exercises/L18_dataset_biodegradation_data.rds"))
 ```
 
 Once the data are in, the first step is to inspect the dataset:

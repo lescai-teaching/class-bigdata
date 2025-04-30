@@ -4,7 +4,7 @@
 # chi-square test
 ###################
 
-carrierData = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L08_choosing_tests/L08_dataset_carrier_data.rds"))
+carrierData = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L08_choosing_tests/L08_dataset_carrier_data.rds"))
 
 ## let's use the infer workflow to show run a chi-square test
 ## the hypothesis is that the genotype is different in cases and controls
@@ -80,7 +80,7 @@ tidy(chisq_base)
 ###### T-TEST ##########
 ####################################################
 
-bloodTestsData = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L08_choosing_tests/L08_dataset_bloodtests.rds"))
+bloodTestsData = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L08_choosing_tests/L08_dataset_bloodtests.rds"))
 
 
 ggplot(bloodTestsData, aes(x=sugar, y=..density.., fill=individual_group))+
@@ -132,7 +132,7 @@ t_test(x = bloodTestsData,
 ###### ANOVA ########
 #################################################
 
-bloodTestsGroups = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L08_choosing_tests/L08_dataset_bloodtests-groups.rds"))
+bloodTestsGroups = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L08_choosing_tests/L08_dataset_bloodtests-groups.rds"))
 
 ## first let's look at the data
 
@@ -285,7 +285,7 @@ tidy(linear_model2)
 ## CHI-SQUARE VS FISHER TEST ##############
 ###########################################
 
-carrierDataRARE = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L08_choosing_tests/L08_dataset_carrierRARE_data.rds"))
+carrierDataRARE = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L08_choosing_tests/L08_dataset_carrierRARE_data.rds"))
 
 chisq_test(carrierDataRARE, condition ~ genotype)
 

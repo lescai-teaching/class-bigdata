@@ -1,6 +1,6 @@
 
 ## we load the dataset
-babynames = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L11_data_import-export/L11_dataset_babynames.rds"))
+babynames = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L11_data_import-export/L11_dataset_babynames.rds"))
 
 ## have a look at the data
 babynames

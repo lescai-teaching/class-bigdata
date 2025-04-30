@@ -9,7 +9,7 @@ A lab is optimising the production of *proteinA* in a bioreactor: they have prep
 You can load the data with the following code:
 
 ```R
-dataReactor = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L10_stats_exercises/exercise_04/L10_dataset_exercise04.rds"))
+dataReactor = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L10_stats_exercises/exercise_04/L10_dataset_exercise04.rds"))
 ```
 
 

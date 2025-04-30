@@ -4,7 +4,7 @@ library(tidymodels)
 tidymodels_prefer()
 
 ## read the data in
-photosynthesis_data = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L13_modelling_intro/L13_dataset_photosynthesis_data.rds"))
+photosynthesis_data = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L13_modelling_intro/L13_dataset_photosynthesis_data.rds"))
 
 
 ## split in training and testing

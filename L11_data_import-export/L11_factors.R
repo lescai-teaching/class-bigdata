@@ -15,7 +15,7 @@ unclass(eyes)
 
 
 ## import a dataset
-factorData = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L11_data_import-export/L11_dataset_factors.rds"))
+factorData = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L11_data_import-export/L11_dataset_factors.rds"))
 
 ## inspect the dataset
 factorData

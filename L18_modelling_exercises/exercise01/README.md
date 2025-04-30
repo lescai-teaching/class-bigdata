@@ -22,7 +22,7 @@ Nitrogen is measured in parts per million (*ppm*).
 The dataset can be loaded with:
 
 ```r
-biodegradation_data = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L18_modelling_exercises/L18_dataset_biodegradation_data.rds"))
+biodegradation_data = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L18_modelling_exercises/L18_dataset_biodegradation_data.rds"))
 
 ```
 

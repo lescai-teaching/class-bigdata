@@ -1,5 +1,5 @@
 
-variant_analysis = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L06_hypothesis_testing/L06_multiple_testing_dataset_variants.rds"))
+variant_analysis = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L06_hypothesis_testing/L06_multiple_testing_dataset_variants.rds"))
 
 
 variant_analysis = variant_analysis %>%

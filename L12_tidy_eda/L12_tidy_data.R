@@ -1,7 +1,7 @@
 
 ## load simple data
-table_colvars = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L12_tidy_eda/L12_dataset_table-colvars.rds"))
-table_diffvars = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L12_tidy_eda/L12_dataset_table-diffvars.rds"))
+table_colvars = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L12_tidy_eda/L12_dataset_table-colvars.rds"))
+table_diffvars = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L12_tidy_eda/L12_dataset_table-diffvars.rds"))
 
 ## inspect the dataset
 table_colvars
@@ -31,8 +31,8 @@ table_diffvars %>%
 
 
 ## load genotype data and samples metadata
-genotypes = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L12_tidy_eda/L12_dataset_genotypes.rds"))
-samples_metadata = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L12_tidy_eda/L12_dataset_sample_metadata.rds"))
+genotypes = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L12_tidy_eda/L12_dataset_genotypes.rds"))
+samples_metadata = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L12_tidy_eda/L12_dataset_sample_metadata.rds"))
 
 
 ## inspect them both

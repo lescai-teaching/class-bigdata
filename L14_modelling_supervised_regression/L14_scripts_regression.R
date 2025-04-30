@@ -5,7 +5,7 @@ library(tidymodels)
 tidymodels_prefer()
 
 
-enzyme_process_data = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L14_modelling_supervised_regression/L14_dataset_enzyme_process_data.rds"))
+enzyme_process_data = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L14_modelling_supervised_regression/L14_dataset_enzyme_process_data.rds"))
 
 
 ## FIRST WE SPLIT the dataset into training and testing

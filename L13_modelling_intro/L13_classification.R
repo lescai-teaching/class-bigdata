@@ -1,5 +1,5 @@
 
-heart_disease_data = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L13_modelling_intro/L13_dataset_heart_disease_data.rds"))
+heart_disease_data = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L13_modelling_intro/L13_dataset_heart_disease_data.rds"))
 
 
 ## first let's split

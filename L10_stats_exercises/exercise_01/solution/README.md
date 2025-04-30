@@ -5,7 +5,7 @@
 We load the data with:
 
 ```R
-dataExposure = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L10_stats_exercises/exercise_01/L10_dataset_exercise01.rds"))
+dataExposure = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L10_stats_exercises/exercise_01/L10_dataset_exercise01.rds"))
 ```
 
 ## Data overview

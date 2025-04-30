@@ -7,7 +7,7 @@ The workflow shoud analyse the same dataset used in the modelling exercises, for
 The data can be retrieved at the following URL
 
 ```bash
-https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L30_nextflow_your-workflow/L30_dataset_metastasis_risk.tsv
+https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L30_nextflow_your-workflow/L30_dataset_metastasis_risk.tsv
 ```
 
 ## Scope of the workflow

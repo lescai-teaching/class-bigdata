@@ -2,7 +2,7 @@
 library(tidymodels)
 library(tidyverse)
 
-logreg_variants = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L15_modelling_supervised_classification/L15_dataset_logreg_variants.rds"))
+logreg_variants = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L15_modelling_supervised_classification/L15_dataset_logreg_variants.rds"))
 
 
 rf_model_tuning <- rand_forest(
@@ -69,7 +69,7 @@ rf_class_tune_wf <- workflow() %>%
 #     grid = rf_tuning_grid
 #   )
 
-rf_tuning_results = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L15_modelling_supervised_classification/L15_dataset_rf_tuning_results.rds"))
+rf_tuning_results = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L15_modelling_supervised_classification/L15_dataset_rf_tuning_results.rds"))
 
 ### we can inspect the outcome metrics as usual
 

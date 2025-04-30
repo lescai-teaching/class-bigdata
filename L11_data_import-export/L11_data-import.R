@@ -28,7 +28,7 @@ identical(
 
 ### NIMBUS DATASET 
 
-data = url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L11_data_import-export/L11_dataset_babynames.rds")
+data = url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L11_data_import-export/L11_dataset_babynames.rds")
 
 ## one can read from the web
 nimbus = read_csv(data)

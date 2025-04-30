@@ -7,7 +7,7 @@
 ### we use the same dataset used to visualise permutations
 ###########################################################
 
-dataCellCulture = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L07_infer_workflow/L07_dataset_resampling_cellculture.rds"))
+dataCellCulture = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L07_infer_workflow/L07_dataset_resampling_cellculture.rds"))
 
 
 ##### what is our assumption in terms of relationships?
@@ -90,7 +90,7 @@ dataCellCulture_null_distribution %>%
 #########################################################
 
 
-CellCultureMedium = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L07_infer_workflow/L07_dataset_CellCultureMedium.rds"))
+CellCultureMedium = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L07_infer_workflow/L07_dataset_CellCultureMedium.rds"))
 
 
 # let's explore the dataset

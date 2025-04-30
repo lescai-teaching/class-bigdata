@@ -6,7 +6,7 @@
 To load the data we use:
 
 ```R
-dataMicrobiome = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L18_modelling_exercises/L18_dataset_dataMicrobiome.rds"))
+dataMicrobiome = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L18_modelling_exercises/L18_dataset_dataMicrobiome.rds"))
 ```
 Since the dataset is not very large, we can start exploring the content by using *ggpairs*.
 

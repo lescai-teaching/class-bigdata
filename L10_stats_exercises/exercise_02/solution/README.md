@@ -4,7 +4,7 @@
 
 
 ```R
-dataHappyness = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L10_stats_exercises/exercise_02/L10_dataset_exercise_02.rds"))
+dataHappyness = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L10_stats_exercises/exercise_02/L10_dataset_exercise_02.rds"))
 ```
 
 ```R

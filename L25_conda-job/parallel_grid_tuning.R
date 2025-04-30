@@ -3,7 +3,7 @@
 library(tidymodels)
 library(tidyverse)
 
-logreg_variants = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L15_modelling_supervised_classification/L15_dataset_logreg_variants.rds"))
+logreg_variants = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L15_modelling_supervised_classification/L15_dataset_logreg_variants.rds"))
 
 
 rf_model_tuning <- rand_forest(

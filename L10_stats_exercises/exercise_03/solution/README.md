@@ -3,7 +3,7 @@
 First we need to load the data
 
 ```R
-dataCytofluorimeter = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L10_stats_exercises/exercise_03/L10_dataset_exercise03.rds"))
+dataCytofluorimeter = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L10_stats_exercises/exercise_03/L10_dataset_exercise03.rds"))
 ```
 
 We briefly inspect the dataset

@@ -6,7 +6,7 @@
 First we import the data as described.
 
 ```R
-dataReactor = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L10_stats_exercises/exercise_04/L10_dataset_exercise04.rds"))
+dataReactor = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L10_stats_exercises/exercise_04/L10_dataset_exercise04.rds"))
 ```
 
 Then it's always better to have a look:

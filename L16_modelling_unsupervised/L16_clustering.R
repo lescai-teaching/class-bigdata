@@ -7,7 +7,7 @@ library(GGally)
 
 
 
-cytofluorimeter_data = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L16_modelling_unsupervised/L16_dataset_cytofluorimeter.rds"))
+cytofluorimeter_data = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L16_modelling_unsupervised/L16_dataset_cytofluorimeter.rds"))
 
 
 
@@ -78,7 +78,7 @@ k_means_fit %>% sse_ratio()
 ##### more complex data
 ##################################
 
-dataCellCulture = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L16_modelling_unsupervised/L16_dataset_cellculture_advanced.rds"))
+dataCellCulture = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L16_modelling_unsupervised/L16_dataset_cellculture_advanced.rds"))
 
 # To explore the dataset and identify any correlations 
 # between the variables, you can use the GGally::ggpairs() function:

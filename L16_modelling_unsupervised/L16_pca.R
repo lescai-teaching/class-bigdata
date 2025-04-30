@@ -6,7 +6,7 @@ library(dbscan)
 library(GGally)
 
 
-genotypes = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata-2023/main/L12_tidy_eda/L12_dataset_genotypes.rds"))
+genotypes = readRDS(url("https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L12_tidy_eda/L12_dataset_genotypes.rds"))
 
 
 ### base R

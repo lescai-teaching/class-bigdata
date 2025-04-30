@@ -6,7 +6,7 @@ library(GGally)
 library(vip)
 
 # Load the dataset
-blood_pressure_data <- read_tsv("~/bigdata/class-bigdata-2023/L37_tutoring/regression/dataset/mbg_exams_blood_pressure_data.tsv")
+blood_pressure_data <- read_tsv("~/bigdata/class-bigdata/L37_tutoring/regression/dataset/mbg_exams_blood_pressure_data.tsv")
 
 # Visualise the relationships between the variables
 scatterplot_matrix <- ggpairs(blood_pressure_data)
