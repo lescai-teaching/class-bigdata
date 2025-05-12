@@ -3,7 +3,6 @@ channels:
   - bioconda
   - conda-forge
   - r
-  - defaults
 dependencies:
   - r-tidyverse
   - r-tidymodels
