@@ -2,10 +2,10 @@ process MAD {
     tag "$experiment_name"
     label 'process_low'
     
-    conda "conda-forge::r-matrixstats=0.61.0 conda-forge::r-readr=2.1.2 conda-forge::r-tibble=3.1.6"
+    conda "conda-forge::r-matrixstats=1.5.0 conda-forge::r-readr=2.1.5 conda-forge::r-tibble=3.2.1"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'oras://community.wave.seqera.io/library/r-matrixstats_r-readr_r-tibble:1d25ad1f11a6301f' :
-        'community.wave.seqera.io/library/r-matrixstats_r-readr_r-tibble:00f58eacc57dc193' }"
+        'oras://community.wave.seqera.io/library/r-matrixstats_r-readr_r-tibble:eb48f6df9f087519' :
+        'community.wave.seqera.io/library/r-matrixstats_r-readr_r-tibble:eaa6eb67f2ecc815' }"
     
     input:
     tuple val(experiment_name), path(data_file)
