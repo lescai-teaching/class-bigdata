@@ -3,7 +3,7 @@ process MEAN_SD {
     label 'process_low'
     
     conda "conda-forge::r-tidyverse=1.3.1"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+    container "${ workflow.containerEngine == 'apptainer' && !task.ext.singularity_pull_docker_container ?
         'oras://community.wave.seqera.io/library/r-tidyverse:1.3.1--6278dcf30dd26796' :
         'community.wave.seqera.io/library/r-tidyverse:1.3.1--4953a1407d1e33c7' }"
     
