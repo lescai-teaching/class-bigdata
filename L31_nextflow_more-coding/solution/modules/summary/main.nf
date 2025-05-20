@@ -1,5 +1,4 @@
 process SUMMARY {
-    publishDir "${params.outdir}/summary", mode: 'copy'
     label 'process_low'
     
     conda "conda-forge::r-tidyverse=1.3.1"
