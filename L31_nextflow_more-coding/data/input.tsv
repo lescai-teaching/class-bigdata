@@ -1,0 +1,4 @@
+experiment	datafile
+exp1	https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L31_nextflow_more-coding/data/experiment1.tsv
+exp2	https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L31_nextflow_more-coding/data/experiment2.tsv
+exp3	https://raw.githubusercontent.com/lescai-teaching/class-bigdata/main/L31_nextflow_more-coding/data/experiment3.tsv
