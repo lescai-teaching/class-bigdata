@@ -1,3 +1,0 @@
-content line one
-content line two
-content line three

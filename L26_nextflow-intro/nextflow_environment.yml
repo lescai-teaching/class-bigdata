@@ -1,9 +1,0 @@
-name: nextflow
-channels:
-    - bioconda
-    - conda-forge
-dependencies:
-    - nextflow=23.10.1
-    - nf-core=2.13.1
-    - python=3.11
-    - nf-test=0.8.4
