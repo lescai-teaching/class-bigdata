@@ -10,11 +10,56 @@
     ></script>
     <script type="module">
       import { runExportedApp } from "./shinylive/shinylive.js";
-      runExportedApp({
-        id: "root",
-        appEngine: "r",
-        relPath: "",
-      });
+
+      const cleanupKey = "shinylive-cleanup-v1";
+
+      async function resetOldShinyliveWorkers() {
+        if (!("serviceWorker" in navigator)) {
+          return false;
+        }
+        if (localStorage.getItem(cleanupKey) === "done") {
+          return false;
+        }
+
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        const shinyliveRegistrations = registrations.filter((registration) =>
+          registration.active && registration.active.scriptURL.includes("shinylive-sw.js")
+        );
+
+        if (shinyliveRegistrations.length === 0) {
+          localStorage.setItem(cleanupKey, "done");
+          return false;
+        }
+
+        await Promise.all(
+          shinyliveRegistrations.map((registration) => registration.unregister())
+        );
+        localStorage.setItem(cleanupKey, "done");
+        window.location.reload();
+        return true;
+      }
+
+      async function startApp() {
+        if (await resetOldShinyliveWorkers()) {
+          return;
+        }
+
+        if ("serviceWorker" in navigator) {
+          await navigator.serviceWorker.ready;
+          if (!navigator.serviceWorker.controller) {
+            window.location.reload();
+            return;
+          }
+        }
+
+        runExportedApp({
+          id: "root",
+          appEngine: "r",
+          relPath: "",
+        });
+      }
+
+      startApp();
     </script>
     <link rel="stylesheet" href="./shinylive/style-resets.css" />
     <link rel="stylesheet" href="./shinylive/shinylive.css" />
