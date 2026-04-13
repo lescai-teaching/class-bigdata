@@ -53,9 +53,9 @@ We add *step_zv()* to remove invariant values, should this be needed.
 ```R
 logreg_recipe <- recipe(metastasis_risk ~ .,
                         data = metastasis_risk_data_training) %>% 
-  step_zv() %>% 
+  step_dummy(all_nominal_predictors()) %>% 
   step_normalize(all_numeric_predictors()) %>% 
-  step_dummy(all_nominal_predictors())
+  step_zv()
 ```
 
 Once prepared the above, we can assemble our workflow
@@ -133,9 +133,9 @@ The rest of the code is pretty much the same
 ```R
 multinomreg_recipe <- recipe(metastasis_risk ~ .,
                         data = metastasis_risk_data_training) %>% 
-  step_zv() %>% 
+  step_dummy(all_nominal_predictors()) %>% 
   step_normalize(all_numeric_predictors()) %>% 
-  step_dummy(all_nominal_predictors())
+  step_zv()
 
 multinomreg_wf <- workflow() %>% 
   add_recipe(multinomreg_recipe) %>% 
@@ -189,9 +189,9 @@ We can build the recipe on all predictors, and we assemble a feature engineering
 ```R
 rf_recipe <- recipe(metastasis_risk ~ .,
                     data = metastasis_risk_data_training) %>% 
-  step_zv() %>% 
+  sstep_dummy(all_nominal_predictors()) %>% 
   step_normalize(all_numeric_predictors()) %>% 
-  step_dummy(all_nominal_predictors())
+  step_zv()
 ```
 
 Now we can assemble this new workflow:

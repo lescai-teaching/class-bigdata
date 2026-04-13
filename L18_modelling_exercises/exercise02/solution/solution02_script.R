@@ -19,9 +19,10 @@ logreg_model <- logistic_reg() %>%
 
 logreg_recipe <- recipe(metastasis_risk ~ .,
                         data = metastasis_risk_data_training) %>% 
-  step_zv() %>% 
+  step_dummy(all_nominal_predictors()) %>% 
   step_normalize(all_numeric_predictors()) %>% 
-  step_dummy(all_nominal_predictors())
+  step_zv()
+
 
 logreg_wf <- workflow() %>% 
   add_recipe(logreg_recipe) %>% 
@@ -60,9 +61,9 @@ multinomreg_model <- multinom_reg() %>%
 
 multinomreg_recipe <- recipe(metastasis_risk ~ .,
                         data = metastasis_risk_data_training) %>% 
-  step_zv() %>% 
+  step_dummy(all_nominal_predictors()) %>% 
   step_normalize(all_numeric_predictors()) %>% 
-  step_dummy(all_nominal_predictors())
+  step_zv()
 
 multinomreg_wf <- workflow() %>% 
   add_recipe(multinomreg_recipe) %>% 
@@ -105,9 +106,9 @@ rf_model <- rand_forest(
 
 rf_recipe <- recipe(metastasis_risk ~ .,
                     data = metastasis_risk_data_training) %>% 
-  step_zv() %>% 
+  step_dummy(all_nominal_predictors()) %>% 
   step_normalize(all_numeric_predictors()) %>% 
-  step_dummy(all_nominal_predictors())
+  step_zv()
 
 
 rf_workflow <- workflow() %>% 
