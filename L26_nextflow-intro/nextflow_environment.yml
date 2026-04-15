@@ -1,9 +1,10 @@
 name: nextflow
 channels:
-    - bioconda
-    - conda-forge
+  - conda-forge
+  - bioconda
 dependencies:
-    - nextflow=23.10.1
-    - nf-core=2.13.1
-    - python=3.11
-    - nf-test=0.8.4
+  - openjdk=17
+  - nextflow=25.10.4
+  - nf-core=3.5.2
+  - nf-test=0.9.4
+  - python=3.12

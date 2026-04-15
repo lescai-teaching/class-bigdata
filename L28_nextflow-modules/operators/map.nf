@@ -1,28 +1,27 @@
 
 // first option
 
-nums = Channel.of(1, 2, 3, 4) 
-square = nums.map { it -> it * it } 
-square.view() 
+def nums = channel.of(1, 2, 3, 4)
+def square = nums.map { number -> number * number }
+square.view()
 
 // second option to chain operators
 
-Channel
+channel
     .of(1, 2, 3, 4)
-    .map { it -> it * it }
+    .map { number -> number * number }
     .view()
 
 // apply any function
 
-Channel
+channel
     .of('hello', 'world')
-    .map { it -> it.reverse() }
+    .map { word -> word.reverse() }
     .view()
 
 // or create new tuples
 
-Channel
+channel
     .of('hello', 'world')
     .map { word -> [word, word.size()] }
     .view { word, len -> "$word contains $len letters" }
-

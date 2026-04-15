@@ -1,4 +1,4 @@
-#!/bin/Rscript
+#!/usr/bin/env Rscript
 
 library(tidymodels)
 library(tidyverse)
@@ -63,6 +63,7 @@ rf_class_tune_wf <- workflow() %>%
 
 library(doParallel)                                                                                                                                                                          
 cl <- makePSOCKcluster(4)
+on.exit(stopCluster(cl), add = TRUE)
 registerDoParallel(cl)
 
 rf_tuning_results <- 

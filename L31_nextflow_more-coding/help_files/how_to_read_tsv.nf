@@ -1,7 +1,8 @@
-Channel
+def inputDataCh = channel
     .fromPath(params.input)
     .splitCsv(header:true, sep:'\t')
-    .map { row -> 
-        [row.experiment, row.datafile] 
+    .map { row ->
+        [row.experiment, file(row.datafile)]
 	}
-    .set { input_data_ch }
+
+inputDataCh.view()

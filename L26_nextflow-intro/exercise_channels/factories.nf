@@ -1,9 +1,7 @@
 def letters = ['A', 'B', 'C']
 
+channel.fromList(letters)
+    .view()
 
-Channel.fromList(letters)
-.view()
-
-
-Channel.value(letters)
-.view()
+channel.value(letters)
+    .view()

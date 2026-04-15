@@ -1,13 +1,14 @@
 #!/usr/bin/env nextflow
 
-params.greeting  = 'Hello world!'
-greeting_ch = Channel.of(params.greeting)
+params.greeting = 'Hello world!'
 
 include { SPLITLETTERS   } from './modules.nf'
 include { CONVERTTOUPPER } from './modules.nf'
 
-workflow{
-    letters_ch = SPLITLETTERS(greeting_ch)
-    results_ch = CONVERTTOUPPER(letters_ch.flatten())
-    results_ch.view{ it }
+workflow {
+    def greetingCh = channel.of(params.greeting)
+    def lettersCh = SPLITLETTERS(greetingCh)
+    def resultsCh = CONVERTTOUPPER(lettersCh.flatten())
+
+    resultsCh.view()
 }

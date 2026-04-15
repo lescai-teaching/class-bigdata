@@ -1,7 +1,6 @@
 #!/usr/bin/env nextflow
 
 params.greeting = 'Hello world!'
-greeting_ch = Channel.of(params.greeting)
 
 process SPLITLETTERS {
     input:
@@ -10,6 +9,7 @@ process SPLITLETTERS {
     output:
     path 'chunk_*'
 
+    script:
     """
     printf '$x' | split -b 6 - chunk_
     """
@@ -22,13 +22,16 @@ process CONVERTTOUPPER {
     output:
     stdout
 
+    script:
     """
-    cat $y | tr '[a-z]' '[A-Z]' 
+    tr '[:lower:]' '[:upper:]' < "$y"
     """
 }
 
 workflow {
-    letters_ch = SPLITLETTERS(greeting_ch)
-    results_ch = CONVERTTOUPPER(letters_ch.flatten())
-    results_ch.view{ it }
+    def greetingCh = channel.of(params.greeting)
+    def lettersCh = SPLITLETTERS(greetingCh)
+    def resultsCh = CONVERTTOUPPER(lettersCh.flatten())
+
+    resultsCh.view()
 }

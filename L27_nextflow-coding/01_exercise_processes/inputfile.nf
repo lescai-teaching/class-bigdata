@@ -1,9 +1,7 @@
-ch_input = Channel.fromPath('../files/content.txt')
-
 process headLine {
 
     input:
-    file content
+    path content
 
     output:
     stdout
@@ -17,7 +15,9 @@ process headLine {
 
 workflow {
 
-    results_ch = headLine( ch_input )
-    results_ch.view()
+    def inputCh = channel.fromPath("${projectDir}/../files/content.txt")
+    def resultsCh = headLine(inputCh)
+
+    resultsCh.view()
 
 }

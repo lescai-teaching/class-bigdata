@@ -1,7 +1,7 @@
-my_channel_1 = Channel.of(1, 2, 3)
-my_channel_2 = Channel.of('a', 'b')
-my_channel_3 = Channel.of('z')
+def myChannel1 = channel.of(1, 2, 3)
+def myChannel2 = channel.of('a', 'b')
+def myChannel3 = channel.of('z')
 
-my_channel_1
-    .mix(my_channel_2, my_channel_3)
+myChannel1
+    .mix(myChannel2, myChannel3)
     .view()

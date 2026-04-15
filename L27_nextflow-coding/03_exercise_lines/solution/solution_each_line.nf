@@ -1,7 +1,6 @@
 #!/usr/bin/env nextflow
 
-params.input  = '../files/content.txt'
-input_ch = Channel.fromPath(params.input)
+params.input = "${projectDir}/../../files/content.txt"
 
 process splitLines {
 
@@ -30,15 +29,16 @@ process getLast {
     output:
     stdout
 
+    script:
     """
-    cat $file | awk '{print \$NF}'
+    awk '{print \$NF}' "$file"
     """
 }
 
 workflow {
-    single_lines_ch = splitLines( input_ch )
-    results_ch = getLast( single_lines_ch )
-    results_ch.view()
+    def inputCh = channel.fromPath(params.input)
+    def singleLinesCh = splitLines(inputCh)
+    def resultsCh = getLast(singleLinesCh.flatten())
+
+    resultsCh.view()
 }
-
-

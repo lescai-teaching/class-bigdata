@@ -5,7 +5,7 @@ library(tidymodels)
 
 args   = commandArgs(trailingOnly=TRUE)
 input  = args[1]
-cores  = args[2]
+cores  = as.integer(args[2])
 output = args[3]
 
 

@@ -5,7 +5,7 @@ library(tidymodels)
 
 args   = commandArgs(trailingOnly=TRUE)
 input  = args[1]
-cores  = args[2]
+cores  = as.integer(args[2])
 output = args[3]
 
 writeLines("getting data")
@@ -77,7 +77,7 @@ rf_tuning_results %>%
 writeLines("finalising workflow")
 
 rf_tuning_best_params = rf_tuning_results %>%
-  select_best("rmse")
+  select_best(metric = "rmse")
 
 final_rf_wf <- rf_regression_tune_wf %>% 
   finalize_workflow(rf_tuning_best_params)

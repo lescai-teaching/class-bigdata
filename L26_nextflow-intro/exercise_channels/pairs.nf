@@ -1,2 +1,3 @@
-ch_files = Channel.fromFilePairs("./files/*_{1,2}.txt")
-ch_files.view{ "value: $it"}
+def filesCh = channel.fromFilePairs('./files/*_{1,2}.txt')
+
+filesCh.view { filePair -> "value: ${filePair}" }

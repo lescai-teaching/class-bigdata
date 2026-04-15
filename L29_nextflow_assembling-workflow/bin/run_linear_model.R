@@ -5,7 +5,7 @@ library(tidymodels)
 
 args   = commandArgs(trailingOnly=TRUE)
 input  = args[1]
-cores  = args[2]
+cores  = as.integer(args[2])
 output = args[3]
 
 writeLines("receiving data")
@@ -66,7 +66,7 @@ write_tsv(tuning_metrics, file = paste0(output, "_lm_tuning_metrics.tsv"))
 ## and we can select the model in a model object
 
 lm_tuning_best_params = lm_tuning_results %>%
-  select_best("rmse")
+  select_best(metric = "rmse")
 
 ### in order to USE the params for predictions
 ### we need to "finalise" the workflow after tuning

@@ -3,14 +3,13 @@ process READ_DATA {
 	tag "import"
 	label 'process_low'
 
-	cpus   = 1
-    memory = 1.GB
+	cpus 1
+    memory 1.GB
 
 	publishDir "${params.outdir}/preprocess", mode: 'copy'
 
-	container "${ workflow.containerEngine == 'singularity' ?
-        'library://lescailab/bigdata/bigdata-rstudio:1.4.0' :
-        'ghcr.io/lescai-teaching/bigdata-rstudio:1.4.0' }"
+	conda "conda-forge::r-base=4.5 conda-forge::r-tidyverse=2.0.0"
+	container 'ghcr.io/lescai-teaching/bigdata-rstudio:1.4.0'
 	
 	input:
 	path tsvfile
@@ -21,8 +20,8 @@ process READ_DATA {
 
 	script:
 	"""
-	Rscript $rscriptfile \
-	$tsvfile
+	Rscript "$rscriptfile" \
+	"$tsvfile"
 	"""
 
 }

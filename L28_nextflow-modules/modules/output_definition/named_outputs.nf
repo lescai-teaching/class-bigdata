@@ -20,6 +20,6 @@ process CONVERTTOUPPER {
 
     script:
     """
-    cat $y | tr '[a-z]' '[A-Z]'
+    tr '[:lower:]' '[:upper:]' < "$y"
     """
 }

@@ -4,10 +4,8 @@ process SUMMARISE {
 
 	publishDir "${params.outdir}/results", mode: 'copy'
 
-	conda "r-tidyverse:1.2.1"
-	container "${ workflow.containerEngine == 'singularity' ?
-        'https://depot.galaxyproject.org/singularity/r-tidyverse:1.2.1' :
-        'quay.io/biocontainers/r-tidyverse:1.2.1' }"
+	conda "conda-forge::r-base=4.5 conda-forge::r-tidyverse=2.0.0"
+	container 'ghcr.io/lescai-teaching/bigdata-rstudio:1.4.0'
 
 	input:
 	path dataset
@@ -19,8 +17,6 @@ process SUMMARISE {
 
 	script:
 	"""
-	Rscript $rscriptfile $dataset
+	Rscript "$rscriptfile" "$dataset"
 	"""
-
-
 }

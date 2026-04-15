@@ -1,8 +1,13 @@
 process MEAN_SD {
     tag "$experiment_name"
     label 'process_low'
-    
-    conda "conda-forge::r-tidyverse=1.3.1"
+
+    publishDir(
+        path: { "${params.outdir}/results/mean_sd/${experiment_name}" },
+        mode: params.publish_dir_mode
+    )
+
+    conda "conda-forge::r-base=4.5 conda-forge::r-tidyverse=2.0.0"
     container "${ workflow.containerEngine == 'apptainer' && !task.ext.singularity_pull_docker_container ?
         'oras://community.wave.seqera.io/library/r-tidyverse:1.3.1--6278dcf30dd26796' :
         'community.wave.seqera.io/library/r-tidyverse:1.3.1--4953a1407d1e33c7' }"
@@ -15,6 +20,6 @@ process MEAN_SD {
     
     script:
     """
-    mean_sd.R $data_file $experiment_name
+    mean_sd.R "$data_file" "$experiment_name"
     """
 }

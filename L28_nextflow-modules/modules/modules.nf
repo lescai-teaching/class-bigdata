@@ -5,6 +5,7 @@ process SPLITLETTERS {
     output:
     path 'chunk_*'
 
+    script:
     """
     printf '$x' | split -b 6 - chunk_
     """
@@ -17,7 +18,8 @@ process CONVERTTOUPPER {
     output:
     stdout
 
+    script:
     """
-    cat $y | tr '[a-z]' '[A-Z]' 
+    tr '[:lower:]' '[:upper:]' < "$y"
     """
 }
