@@ -40,3 +40,21 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+## nextflow related files and tests
+.nextflow*
+work/
+data/
+results/
+.DS_Store
+testing/
+testing*
+*.pyc
+null/
+
+## nf test files
+.nf-test/
+.nf-test*
+
+# anything else
+.nojekyll
