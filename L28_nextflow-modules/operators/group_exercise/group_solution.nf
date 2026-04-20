@@ -1,4 +1,4 @@
-Channel
+channel
     .fromPath('group_exercise/*')
     .map { file -> tuple(file.baseName, file) }
     .groupTuple()

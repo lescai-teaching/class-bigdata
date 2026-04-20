@@ -10,28 +10,22 @@ include { SUMMARY } from './modules/summary/main'
 
 workflow {
 
-	// read the input file and load data
-	// into an input channel
-
-	Channel
+    // read the input file and load data into an input channel
+    def input_data_ch = channel
         .fromPath(params.input)
-        .splitCsv(header:true, sep:'\t')
-        .map { row -> 
-            [row.experiment, row.datafile] 
-		}
-        .set { input_data_ch }
+        .splitCsv(header: true, sep: '\t')
+        .map { row -> [row.experiment, row.datafile] }
 
     // process the input data in parallel
-	MEAN_SD(input_data_ch)
-	PC1_LOADING(input_data_ch)
-	MAD(input_data_ch)
+    MEAN_SD(input_data_ch)
+    PC1_LOADING(input_data_ch)
+    MAD(input_data_ch)
 
-	// collect the results from the previous processes
-	all_stats = MEAN_SD.out.meansd.collect { it[1]}
-	.combine(PC1_LOADING.out.pc1load.collect { it[1]})
-	.combine(MAD.out.mad.collect { it[1]})
+    // collect the results from the previous processes
+    def all_stats = MEAN_SD.out.meansd.collect { it[1] }
+        .combine(PC1_LOADING.out.pc1load.collect { it[1] })
+        .combine(MAD.out.mad.collect { it[1] })
 
-	// generate the summary
-	SUMMARY(all_stats)
-
+    // generate the summary
+    SUMMARY(all_stats)
 }
