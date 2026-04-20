@@ -10,6 +10,7 @@ process splitLetters {
     output:
     file 'chunk_*'
 
+    script:
     """
     printf '$x' | split -b 6 - chunk_
     """
@@ -23,18 +24,17 @@ process convertToUpper {
     output:
     stdout
 
+    script:
     """
     cat $y | tr '[a-z]' '[A-Z]'
     """
 }
 
-params.greeting  = 'Hello world!'
-greeting_ch = Channel.from(params.greeting)
+params.greeting = 'Hello world!'
 
 workflow {
-
-    letters_ch = splitLetters(greeting_ch)
-    uppercase_ch = convertToUpper( letters_ch.flatten() )
-    uppercase_ch.view{ it.trim() }
-
+    def greeting_ch = channel.of(params.greeting)
+    def letters_ch = splitLetters(greeting_ch)
+    def uppercase_ch = convertToUpper(letters_ch.flatten())
+    uppercase_ch.view { it.trim() }
 }
