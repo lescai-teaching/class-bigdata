@@ -3,7 +3,7 @@ channels:
     - bioconda
     - conda-forge
 dependencies:
-    - nextflow=23.10.1
-    - nf-core=2.13.1
+    - nextflow=25.10.4
+    - nf-core=3.5.2
     - python=3.11
-    - nf-test=0.8.4
+    - nf-test=0.9.3

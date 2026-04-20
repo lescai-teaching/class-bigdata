@@ -1,28 +1,27 @@
 process READ_DATA {
 
-	tag "import"
-	label 'process_low'
+    tag 'import'
+    label 'process_low'
 
-	cpus   = 1
-    memory = 1.GB
+    cpus 1
+    memory 1.GB
 
-	publishDir "${params.outdir}/preprocess", mode: 'copy'
+    publishDir "${params.outdir}/preprocess", mode: 'copy'
 
-	container "${ workflow.containerEngine == 'singularity' ?
+    container "${workflow.containerEngine == 'singularity' ?
         'library://lescailab/bigdata/bigdata-rstudio:1.4.0' :
-        'ghcr.io/lescai-teaching/bigdata-rstudio:1.4.0' }"
-	
-	input:
-	path tsvfile
-	path rscriptfile
+        'ghcr.io/lescai-teaching/bigdata-rstudio:1.4.0'}"
 
-	output:
-	path "*.rds", emit: dataset
+    input:
+    path tsvfile
+    path rscriptfile
 
-	script:
-	"""
-	Rscript $rscriptfile \
-	$tsvfile
-	"""
+    output:
+    path '*.rds', emit: dataset
 
+    script:
+    """
+    Rscript $rscriptfile \
+    $tsvfile
+    """
 }

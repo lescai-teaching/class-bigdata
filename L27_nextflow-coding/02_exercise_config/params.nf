@@ -2,5 +2,7 @@
 params.foo = 'Hello'
 params.bar = 'world!'
 
-// print the both params
-println "$params.foo $params.bar"
+workflow {
+    // print both params
+    println "${params.foo} ${params.bar}"
+}
