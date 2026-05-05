@@ -12,14 +12,13 @@ process READ_DATA {
 
     input:
     path tsvfile
-    path rscriptfile
 
     output:
     path '*.rds', emit: dataset
 
     script:
     """
-    Rscript $rscriptfile \
+    run_import.R \
     $tsvfile
     """
 }

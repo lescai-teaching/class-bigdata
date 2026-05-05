@@ -1,4 +1,7 @@
-process RUNMODEL {
+process LINEARMODEL {
+
+    tag 'linear'
+    label 'process_medium'
 
     cpus params.max_cpus
     memory params.max_memory
@@ -9,18 +12,16 @@ process RUNMODEL {
 
     input:
     path dataset
-    path rscript
-    val modeltype
 
     output:
-    path '*.rds', emit: model
+    path '*.tsv', emit: tables
     path '*.pdf', emit: plots
 
     script:
     """
-    Rscript $rscript \
+    run_linear_model.R \
     $dataset \
     ${task.cpus} \
-    $modeltype
+    "LM_results"
     """
 }

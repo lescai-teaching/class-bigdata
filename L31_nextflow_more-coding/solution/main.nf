@@ -10,6 +10,7 @@ include { SUMMARY } from './modules/summary/main'
 
 workflow {
 
+    main:
     // read the input file and load data into an input channel
     def input_data_ch = channel
         .fromPath(params.input)
@@ -28,4 +29,28 @@ workflow {
 
     // generate the summary
     SUMMARY(all_stats)
+
+    publish:
+    mean_sd = MEAN_SD.out.meansd
+    pc1_loading = PC1_LOADING.out.pc1load
+    mad = MAD.out.mad
+    summary = SUMMARY.out.summary
+}
+
+output {
+    mean_sd {
+        path { experiment_name, stats_file -> "results/mean_sd/${experiment_name}/" }
+    }
+
+    pc1_loading {
+        path { experiment_name, stats_file -> "results/pc1_loading/${experiment_name}/" }
+    }
+
+    mad {
+        path { experiment_name, stats_file -> "results/mad/${experiment_name}/" }
+    }
+
+    summary {
+        path 'results/summary'
+    }
 }
