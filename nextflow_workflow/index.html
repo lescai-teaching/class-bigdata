@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 31: Nextflow Workflow Design</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; }
+        code, pre { font-family: 'Fira Code', monospace; }
+        
+        .step-content { display: none; }
+        .step-content.active { display: block; animation: fadeIn 0.4s ease-out; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .sidebar-btn.active {
+            background-color: #2563eb;
+            color: white;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen pb-20">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="bg-blue-600 p-1.5 rounded-lg">
+                    <i data-lucide="workflow" class="text-white w-5 h-5"></i>
+                </div>
+                <h1 class="font-bold text-xl tracking-tight">Class 31: Nextflow Workflow</h1>
+            </div>
+            <div class="flex items-center gap-4">
+                <div id="progress-text" class="hidden md:block text-xs font-semibold text-slate-400 uppercase tracking-widest">Step 1 of 8</div>
+                <div class="h-2 w-32 bg-slate-100 rounded-full overflow-hidden">
+                    <div id="progress-bar" class="h-full bg-blue-500 transition-all duration-500" style="width: 12.5%"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 py-10 grid md:grid-cols-4 gap-8">
+        <aside class="md:col-span-1 space-y-1">
+            <button onclick="showStep(0)" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-left group active">
+                <i data-lucide="book-open" class="w-4 h-4"></i>
+                <span class="text-sm font-semibold">Introduction</span>
+            </button>
+            <button onclick="showStep(1)" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-left group">
+                <i data-lucide="folder-tree" class="w-4 h-4 text-slate-400"></i>
+                <span class="text-sm font-semibold">Starter Files</span>
+            </button>
+            <button onclick="showStep(2)" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-left group">
+                <i data-lucide="workflow" class="w-4 h-4 text-slate-400"></i>
+                <span class="text-sm font-semibold">Pipeline Diagram</span>
+            </button>
+            <button onclick="showStep(3)" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-left group">
+                <i data-lucide="terminal" class="w-4 h-4 text-slate-400"></i>
+                <span class="text-sm font-semibold">Bin & Scripts</span>
+            </button>
+            <button onclick="showStep(4)" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-left group">
+                <i data-lucide="layers" class="w-4 h-4 text-slate-400"></i>
+                <span class="text-sm font-semibold">Exp Modules</span>
+            </button>
+            <button onclick="showStep(5)" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-left group">
+                <i data-lucide="layers" class="w-4 h-4 text-slate-400"></i>
+                <span class="text-sm font-semibold">Summary Module</span>
+            </button>
+            <button onclick="showStep(6)" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-left group">
+                <i data-lucide="file-code" class="w-4 h-4 text-slate-400"></i>
+                <span class="text-sm font-semibold">Assembly (main.nf)</span>
+            </button>
+            <button onclick="showStep(7)" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-left group">
+                <i data-lucide="settings" class="w-4 h-4 text-slate-400"></i>
+                <span class="text-sm font-semibold">Config & Run</span>
+            </button>
+        </aside>
+
+        <section class="md:col-span-3 bg-white p-8 rounded-2xl shadow-sm border border-slate-200 min-h-[600px] flex flex-col">
+            <div id="content-container" class="flex-grow">
+                
+                <!-- 0: Intro -->
+                <div id="step-0" class="step-content active space-y-6">
+                    <h2 class="text-3xl font-bold text-slate-800">Orchestrating Multiple Experiments</h2>
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+                        <p class="text-blue-800 text-lg italic leading-relaxed">
+                            "Today we are not writing the statistical analysis from scratch. Our job is to design and build the orchestration layer that moves data through these analyses."
+                        </p>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="p-4 border border-slate-200 rounded-lg bg-white shadow-sm">
+                            <h3 class="font-bold text-slate-700 mb-2">Design Contract</h3>
+                            <p class="text-slate-600 text-sm">Draw the diagram before writing code.</p>
+                        </div>
+                        <div class="p-4 border border-slate-200 rounded-lg bg-white shadow-sm">
+                            <h3 class="font-bold text-slate-700 mb-2">Process Wrapper</h3>
+                            <p class="text-slate-600 text-sm">Wrap existing R tools in Nextflow processes.</p>
+                        </div>
+                        <div class="p-4 border border-slate-200 rounded-lg bg-white shadow-sm">
+                            <h3 class="font-bold text-slate-700 mb-2">Composition</h3>
+                            <p class="text-slate-600 text-sm">Connect items via channels and operators.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1: Files -->
+                <div id="step-1" class="step-content space-y-6">
+                    <h2 class="text-2xl font-bold text-slate-800">1. Inspect Starter Files</h2>
+                    <p class="text-slate-600">The manifest <code>data/input.tsv</code> is our control table. It contains one row per experiment.</p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                            <h3 class="font-semibold text-xs uppercase text-slate-500 mb-2">Manifest</h3>
+                            <table class="w-full text-xs font-mono">
+                                <thead class="bg-slate-200">
+                                    <tr><th class="p-1 text-left">experiment</th><th class="p-1 text-left">datafile</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b"><td class="p-1">exp1</td><td class="p-1">data/exp1.tsv</td></tr>
+                                    <tr class="border-b"><td class="p-1">exp2</td><td class="p-1">data/exp2.tsv</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                            <h3 class="font-semibold text-xs uppercase text-slate-500 mb-2">Project Layout</h3>
+                            <pre class="text-[10px] font-mono text-slate-700">data/ (input.tsv + raw files)
+help_files/ (mean_sd.R, mad.R, etc)</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2: Diagram -->
+                <div id="step-2" class="step-content space-y-6">
+                    <h2 class="text-2xl font-bold text-slate-800">2. The Design Contract</h2>
+                    <p class="text-slate-600">The diagram defines the <strong>fan-out</strong> (parallel experiments) and <strong>fan-in</strong> (final summary).</p>
+                    <div class="relative p-8 bg-white border border-slate-200 rounded-xl">
+                        <div class="flex flex-col items-center space-y-4">
+                            <div class="px-3 py-1 bg-blue-100 border border-blue-400 rounded text-[10px] font-bold">input.tsv</div>
+                            <div class="w-px h-6 bg-slate-300"></div>
+                            <div class="flex gap-2">
+                                <div class="w-20 h-12 bg-emerald-50 border border-emerald-400 rounded flex items-center justify-center text-[10px] text-center font-bold">MEAN_SD</div>
+                                <div class="w-20 h-12 bg-emerald-50 border border-emerald-400 rounded flex items-center justify-center text-[10px] text-center font-bold">PC1_LOAD</div>
+                                <div class="w-20 h-12 bg-emerald-50 border border-emerald-400 rounded flex items-center justify-center text-[10px] text-center font-bold">MAD</div>
+                            </div>
+                            <div class="w-48 h-px bg-slate-300"></div>
+                            <div class="px-4 py-2 bg-amber-50 border border-amber-400 rounded text-[10px] font-bold uppercase tracking-wider">Collect & Summary</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3: Bin -->
+                <div id="step-3" class="step-content space-y-6">
+                    <h2 class="text-2xl font-bold text-slate-800">3. Setup <code>bin/</code></h2>
+                    <p class="text-slate-600">Move scripts into <code>bin/</code> so Nextflow finds them automatically.</p>
+                    <div class="bg-slate-900 rounded-lg p-4 font-mono text-sm text-emerald-400">
+                        mkdir -p bin<br>
+                        cp help_files/*.R bin/<br>
+                        chmod +x bin/*.R
+                    </div>
+                    <div class="bg-amber-50 border-l-4 border-amber-400 p-4 text-xs text-amber-800">
+                        <strong>Pro Tip:</strong> Ensure scripts have the <code>#!/usr/bin/env Rscript</code> shebang.
+                    </div>
+                </div>
+
+                <!-- 4: Per-Exp Modules -->
+                <div id="step-4" class="step-content space-y-6">
+                    <h2 class="text-2xl font-bold text-slate-800">4. Per-Experiment Modules</h2>
+                    <p class="text-slate-600">Wrap analysis scripts in a process block. Use metadata tuples.</p>
+                    <div class="bg-slate-900 rounded-lg overflow-hidden border border-slate-700">
+                        <div class="bg-slate-800 px-4 py-2 text-slate-400 text-xs font-mono">modules/mean_sd/main.nf</div>
+                        <pre class="p-4 text-slate-300 text-xs font-mono overflow-x-auto">process MEAN_SD {
+    tag "$name"
+    input:
+    tuple val(name), path(data)
+    output:
+    tuple val(name), path("${name}_meansd.tsv"), emit: meansd
+    script:
+    "mean_sd.R $data $name"
+}</pre>
+                    </div>
+                </div>
+
+                <!-- 5: Summary -->
+                <div id="step-5" class="step-content space-y-6">
+                    <h2 class="text-2xl font-bold text-slate-800">5. Summary Module</h2>
+                    <p class="text-slate-600">The <code>SUMMARY</code> process waits for a collection of files.</p>
+                    <div class="bg-slate-900 rounded-lg overflow-hidden border border-slate-700">
+                        <div class="bg-slate-800 px-4 py-2 text-slate-400 text-xs font-mono">modules/summary/main.nf</div>
+                        <pre class="p-4 text-slate-300 text-xs font-mono overflow-x-auto">process SUMMARY {
+    input:
+    path stats_files
+    output:
+    path "all_experiments_summary.tsv"
+    script:
+    "generate_final_summary.R"
+}</pre>
+                    </div>
+                </div>
+
+                <!-- 6: main.nf -->
+                <div id="step-6" class="step-content space-y-6">
+                    <h2 class="text-2xl font-bold text-slate-800">6. Assembly (main.nf)</h2>
+                    <p class="text-slate-600">Use <code>collect()</code> to bridge the gap between parallel steps and the final summary.</p>
+                    <div class="bg-slate-900 rounded-lg p-4">
+                        <pre class="text-blue-300 text-xs font-mono overflow-x-auto">workflow {
+    input_ch = channel.fromPath(params.input)
+        .splitCsv(header:true, sep:'\t')
+        .map { [it.experiment, it.datafile] }
+
+    MEAN_SD(input_ch)
+    PC1_LOADING(input_ch)
+    MAD(input_ch)
+
+    all_stats = MEAN_SD.out.meansd.collect { it[1] }
+        .combine(PC1_LOADING.out.pc1load.collect { it[1] })
+        .combine(MAD.out.mad.collect { it[1] })
+
+    SUMMARY(all_stats)
+}</pre>
+                    </div>
+                </div>
+
+                <!-- 7: Config -->
+                <div id="step-7" class="step-content space-y-6">
+                    <h2 class="text-2xl font-bold text-slate-800">7. Execution</h2>
+                    <p class="text-slate-600">Run with the <code>desktop</code> profile to use Docker/local execution.</p>
+                    <div class="bg-slate-800 p-4 rounded-lg flex justify-between items-center group cursor-pointer">
+                        <code class="text-emerald-400 text-sm font-mono">nextflow run main.nf -profile desktop</code>
+                        <i data-lucide="play" class="text-emerald-400 w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="border-t border-slate-200 pt-6">
+                        <h4 class="font-bold text-slate-800 mb-2">Final Outputs</h4>
+                        <pre class="text-[10px] text-slate-500 font-mono">results/
+|-- mean_sd/exp1_meansd.tsv
+`-- summary/all_experiments_summary.tsv</pre>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-12 pt-8 border-t border-slate-100 flex justify-between items-center">
+                <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Orchestration &bull; Parallelism &bull; Reproducibility</p>
+                <button id="next-btn" onclick="nextStep()" class="bg-slate-900 text-white px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 hover:bg-slate-800 transition-all active:scale-95 shadow-md">
+                    <span id="next-text">Next Step</span>
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let currentStep = 0;
+        const totalSteps = 8;
+        
+        function showStep(index) {
+            currentStep = index;
+            document.querySelectorAll('.step-content').forEach((el, i) => el.classList.toggle('active', i === index));
+            document.querySelectorAll('.sidebar-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+                const icon = btn.querySelector('i');
+                if (i === index) icon.classList.remove('text-slate-400');
+                else icon.classList.add('text-slate-400');
+            });
+
+            const progress = ((index + 1) / totalSteps) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+            document.getElementById('progress-text').innerText = `Step ${index + 1} of ${totalSteps}`;
+            document.getElementById('next-text').innerText = index === totalSteps - 1 ? 'Start Over' : 'Next Step';
+            
+            lucide.createIcons();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextStep() {
+            if (currentStep >= totalSteps - 1) showStep(0);
+            else showStep(currentStep + 1);
+        }
+
+        window.onload = () => lucide.createIcons();
+    </script>
+</body>
+</html>
