@@ -47,7 +47,7 @@
     </header>
 
     <main class="max-w-5xl mx-auto px-6 py-10 grid md:grid-cols-4 gap-8">
-        <aside class="md:col-span-1 space-y-1">
+        <aside id="sidebar" class="md:col-span-1 space-y-1">
             <button onclick="showStep(0)" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-left group active">
                 <i data-lucide="book-open" class="w-4 h-4"></i>
                 <span class="text-sm font-semibold">Introduction</span>
@@ -144,7 +144,7 @@ help_files/ (mean_sd.R, mad.R, etc)</pre>
                             <div class="w-px h-6 bg-slate-300"></div>
                             <div class="flex gap-2">
                                 <div class="w-20 h-12 bg-emerald-50 border border-emerald-400 rounded flex items-center justify-center text-[10px] text-center font-bold">MEAN_SD</div>
-                                <div class="w-20 h-12 bg-emerald-50 border border-emerald-400 rounded flex items-center justify-center text-[10px] text-center font-bold">PC1_LOAD</div>
+                                <div class="w-20 h-12 bg-emerald-50 border border-emerald-400 rounded flex items-center justify-center text-[10px] text-center font-bold">PC1_LOADING</div>
                                 <div class="w-20 h-12 bg-emerald-50 border border-emerald-400 rounded flex items-center justify-center text-[10px] text-center font-bold">MAD</div>
                             </div>
                             <div class="w-48 h-px bg-slate-300"></div>
@@ -259,18 +259,32 @@ help_files/ (mean_sd.R, mad.R, etc)</pre>
         
         function showStep(index) {
             currentStep = index;
-            document.querySelectorAll('.step-content').forEach((el, i) => el.classList.toggle('active', i === index));
+            // Update step content visibility
+            document.querySelectorAll('.step-content').forEach((el, i) => {
+                if (el) el.classList.toggle('active', i === index);
+            });
+            
+            // Update sidebar button active states
             document.querySelectorAll('.sidebar-btn').forEach((btn, i) => {
-                btn.classList.toggle('active', i === index);
-                const icon = btn.querySelector('i');
-                if (i === index) icon.classList.remove('text-slate-400');
-                else icon.classList.add('text-slate-400');
+                if (btn) {
+                    btn.classList.toggle('active', i === index);
+                    const icon = btn.querySelector('i');
+                    if (icon) {
+                        if (i === index) icon.classList.remove('text-slate-400');
+                        else icon.classList.add('text-slate-400');
+                    }
+                }
             });
 
             const progress = ((index + 1) / totalSteps) * 100;
-            document.getElementById('progress-bar').style.width = progress + '%';
-            document.getElementById('progress-text').innerText = `Step ${index + 1} of ${totalSteps}`;
-            document.getElementById('next-text').innerText = index === totalSteps - 1 ? 'Start Over' : 'Next Step';
+            const progressBar = document.getElementById('progress-bar');
+            if (progressBar) progressBar.style.width = progress + '%';
+            
+            const progressText = document.getElementById('progress-text');
+            if (progressText) progressText.innerText = `Step ${index + 1} of ${totalSteps}`;
+            
+            const nextText = document.getElementById('next-text');
+            if (nextText) nextText.innerText = index === totalSteps - 1 ? 'Start Over' : 'Next Step';
             
             lucide.createIcons();
             window.scrollTo({ top: 0, behavior: 'smooth' });
